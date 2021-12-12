@@ -10,13 +10,13 @@ In the center of this room you see a simple stone plinth. It is lit from a hole 
 -> opt
 
 = opt
-+ {plinth_took == 0}[Knock the coins off the plinth {trapped:again }with your spear. (0-1 effort)]->trapped
++ {plinth_took == 0}[Knock the coins off the plinth {trapped:again }with your spear.]->trapped
 + {plinth_took > 0 && plinth_took < plinth_coins}[Knock the coin off the plinth {trapped:again }with your spear.]-> trapped
 + {plinth_took == 0}[Walk past the plinth.]
     You walk past the display, side-eyeing the tempting offer it presents. {There seems to be no other traps in this room.|}
-    ->->
+    -> go_direction(1)
 + {plinth_took == 0}[Return the way you came.]-> go_direction(-1)
-+ {plinth_took == plinth_coins-1}[Leave through the open exit.]-> go_direction(1)
++ {plinth_took == plinth_coins-1}[Leave through the open exit.]-> go_direction(-1)
 
 = returning
 {
@@ -32,7 +32,7 @@ In the center of this room you see a simple stone plinth. It is lit from a hole 
 }
 
 = trapped
-You extend your spear and poke at the {plinth_took == plinth_coins-1:single coin, knocking it free from its display. It hits the floor, bounces a few times noisily and comes to a halt.|short stack of gold{trapped > 1: again}, knocking the coins free from their display. The tintinnabulation of them striking the ground is followed by metallic scraping as iron bars drop down in front of all the exits. They hit the floor with a clang, sealing you against escape.}
+You extend your spear and poke at the {plinth_took == plinth_coins-1:single coin, knocking it free from its display. It hits the floor, bounces a few times noisily and comes to a halt. The open exit closes.|short stack of gold{trapped > 1: again}, knocking the coins free from their display. {The tintinnabulation of them striking the ground is followed by metallic scraping as iron bars drop down in front of all the exits. They hit the floor with a clang, sealing you against escape.|The exits are closed once more.}}
 You pick up the gold coin{plinth_took == plinth_coins-1: |s} and consider your next move.
 ~ plinth_took = plinth_coins
 ~ gold += plinth_took
@@ -42,7 +42,7 @@ You pick up the gold coin{plinth_took == plinth_coins-1: |s} and consider your n
     ~ gold--
     ~ plinth_took--
     You put one coin back upon the plinth. In response to this gesture, one of the exits opens. Having been disorientated by the falling bars, you can't remember which exit is which.
-    + + [Leave the room.]-> go_direction(1)
+    + + [Leave the room.]-> go_direction(-1)
     + + [Put the rest of the coins back on the plinth.]
     -> replace_coins
 * (lift){stamina > 1} [Try to lift the bars. (-1 stamina)]
