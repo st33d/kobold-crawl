@@ -16,15 +16,17 @@ This room looks suspiciously empty. You take a step forwards and your snout bump
 + [Return the way you came.]-> go_direction(-1)
 
 = break_wall
-You charge into the transparency before you <>
+You charge into the transparency before you.
+<- rollChance(temp_chance)
 {
 - isSuccess:-> empty
 - else:
     ~ loseStamina()
     {
-        - stamina > 0:and are suprised to find it move from your effort. {RANDOM(2, 5)} tries later and you feel it tip over. A loud stony wham issues from the space before you. You're able to walk over the wall now, despite how confusing it is to do so.
+        - stamina > 0:You're suprised to find it move from your effort. {RANDOM(2, 5)} tries later and you feel it tip over. A loud stony wham issues from the space before you. You're able to walk over the wall now, despite how confusing it is to do so.
             On your way over you spot a gold coin, right under the center of the slab.
-            -> do_you_even
+            <- do_you_even
+            ->->
         - else:and hear a shattering sound. As you tumble to the floor, you feel sharp things pierce you. A large invisible blade of the wall skewers you through the middle. Your life drains out, down and over shards that become more visible the closer you are to death.
             -> END
     }
@@ -60,7 +62,8 @@ Tapping up and down the wall with your spear you find that the wall doesn't conn
     ->lift_slab
 * [Inspect the room.]
     -> inspect ->
-    -> do_you_even
+    <- do_you_even
+    ->->
 
 = inspect_opt
 * [Inspect the room.]
@@ -79,4 +82,4 @@ Walls, floor, and ceiling are covered in plain stonework. They refuse to show an
 ~ gold++
 You wedge your claws under the edge of nothing and lift, wiggling your grip further in as you do. When you get it up to your waist you wedge it on your hips and awkwardly scrape the coin out of its display case with your spear.
 Your prize in the clear you drop the slab. It slams down and leaves you to marvel at how the dust raised refuses to settle on it.
--> do_you_even
+->->

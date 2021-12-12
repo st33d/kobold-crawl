@@ -51,7 +51,6 @@ VAR direction = 1// 1: going deeper -1: going back
 VAR inventory = ()// items/conditions you carry
 VAR witness = ()// events
 VAR temp_chance = 0// temporary VAR for tracking chance between knots
-VAR gold = 0// score
 VAR wisdom = 0// used to skip depths
 VAR wisdom_prev = 0// used to detect wisdom update in passages
 VAR lucky = false// gives advantage on next dice roll
@@ -60,7 +59,8 @@ VAR isEnding = false// is this the end of the maze?
 VAR isReroll = false// did we reroll this room when backtracking?
 VAR isReachedCenter = false// have we been to the center?
 
-VAR stamina = 3
+VAR gold = 0// score
+VAR stamina = 2
 //VAR stamina = STAMINA_TOTAL
 
 //~inventory += potion
@@ -165,7 +165,7 @@ VAR stamina = 3
 ~ isEnding = false
 { room_index:
     - 0:-> room1 ->
-    - 1:-> invisible_wall ->
+    - 1:-> falconsloth ->
     - 2:-> room2 ->
     - 3:-> room3 ->
     - 4:-> room4 ->

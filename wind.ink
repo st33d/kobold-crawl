@@ -20,7 +20,6 @@ There's also a gold coin on the floor nearby - it would be risky to try and get 
 + [Crawl through. (%{temp_chance})]-> crawl
 * (look) [Look for a way to dismantle the trap.]
     ~ wisdom++
-    There's no strange feeling of magic in here so this room must have had the engineering hands of the Atii tribe upon it. And that means there's a way to break it.
     The mesh reaches the edge of the room, clearly to stop you from working your way around the perimeter. Each wire of mesh at the edge is tied to a small metal pin, haphazardly hammered into the stone work. You could probably pry it free with your spear.
     -> dismantle
 + {lip == 0 && look}[Dismantle the trap. (%{temp_chance})]-> lip
