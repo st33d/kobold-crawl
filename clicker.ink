@@ -3,7 +3,7 @@
 {
     - clicker == 1: -> click1
     - clicker == 2: -> click2
-    - clicker == 3: -> click3
+    - not sprung: -> click3
     - else: -> returning
 }
 
@@ -20,7 +20,7 @@ You return to the "clicking room".
     Your scaly toes caress the stone floor as gently as you can.
 * [Prod the floor with your spear.]
     You gently poke the floor with the spear's blade. 
--   Another click. Silence follows. Further probing has no effect.
+- Another click. Silence follows. Further probing has no effect.
 * [Search the room, properly.]
     You check every surface and every nook for answers. Rapping walls and floor with the butt of your spear you make a circuit of the room - discovering almost nothing. Through one crack in one corner you see a glint of gears poised to activate a mechanism. The gap is too small to wedge anything inside.
     Next time you return here something will happen, you're sure of it.
@@ -32,14 +32,10 @@ You return to the "clicking room".
 You pause at the entrance to the room that clicks.
 * [Stride boldly in.]
     You stride boldly in, daring the room to make a noise. Sure enough you hear a click followed by a chorus of plinks. In each corner of the room a small hole has opened.
-    * * [Dive to the floor. (-1 stamina)]
+    * * {stamina > 1}[Dive to the floor. (-1 stamina)]
         ~ loseStamina()
-        You dive and the stony floor slams into your snout as darts whistle over you. You hear them clatter harmlessly into the corners of the room. <>
-        {
-            - stamina > 0:You slowly raise yourself from the floor.
-            - else:Exhausted and injured you decide to stay here for a while. Perhaps take a nap. You don't wake up.
-                -> END
-        }
+        ~ lucky = true
+        You dive and the stony floor slams into your snout as darts whistle over you. You hear them clatter harmlessly into the corners of the room. You slowly raise yourself from the floor, bruised but sure your luck will change for taking the safe option.
     * * [Backflip. (%{chance_backflip})]
         <- rollChance(chance_backflip)
         {
@@ -53,7 +49,10 @@ You pause at the entrance to the room that clicks.
                 }
         }
 + [It's not worth the risk.]-> go_direction(-1)
--(sprung)
+-
+-> sprung
+
+= sprung
 ~gold += 4
 You inspect the holes that produced the darts and find a gold coin in each. A strange reward for your patience but you'll take what you can get.
 ->->

@@ -16,8 +16,8 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
 * {not bite}[Inspect the table]
     ~ wisdom++
     You walk a circle around the table, careful not to get too close in case you trigger a reaction. It looks a lot like food and nothing more. You take a look under the table. In its shadow you can barely make out a message carved into the floor.
-    <i>A banquet fit for a king.</i>
-    But the kobolds have no king, or at least the king they did have was banished long ago.
+    <i>A banquet fit for a dragon.</i>
+    But your tribe doesn't serve a dragon.
     <- opt
     ->->
 
@@ -25,8 +25,8 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
 = returning
 {
     - stone:-> return_stone
+    - eat_opt:-> eat
     - bite:-> return_bite
-    - eat:-> eat
     - else: You return to the room with the table of food.
         <-opt
         ->->
@@ -46,7 +46,7 @@ You reach towards an apple and it splits open revealing sharp teeth. The other a
 = bite_opt
 ~ temp_chance = 70
 * [Attack the apples. (%{temp_chance})]-> fight
-+ [Return the way you came.]-> go_direction(1)
++ [Return the way you came.]-> go_direction(-1)
 
 = return_bite
 You return to the room with the table of food. Its monstrous apple guardians, open their jagged mouths to snarl at you.

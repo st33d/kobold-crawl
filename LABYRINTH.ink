@@ -60,8 +60,10 @@ VAR isEnding = false// is this the end of the maze?
 VAR isReroll = false// did we reroll this room when backtracking?
 VAR isReachedCenter = false// have we been to the center?
 
-//VAR stamina = 2
-VAR stamina = STAMINA_TOTAL
+VAR stamina = 3
+//VAR stamina = STAMINA_TOTAL
+
+//~inventory += potion
 
 // =======================================
 // CORE LOOP
@@ -79,6 +81,12 @@ VAR stamina = STAMINA_TOTAL
 === go_back
 ~direction = -1
 ~depth--
+{depth > 0 && lucky:
+    <- passages.lucky_return
+}
+{
+    - inventory ? potion && stamina < STAMINA_TOTAL: -> passages.potion_opt ->
+}
 // (depth {depth})
 -> new_room
 
@@ -88,6 +96,9 @@ VAR stamina = STAMINA_TOTAL
 {depth > depth_lowest:
     ~depth_lowest = depth
     <- passages
+}
+{
+    - inventory ? potion && stamina < STAMINA_TOTAL: -> passages.potion_opt ->
 }
 // (depth {depth})
 -> new_room
@@ -154,7 +165,7 @@ VAR stamina = STAMINA_TOTAL
 ~ isEnding = false
 { room_index:
     - 0:-> room1 ->
-    - 1:-> plinth ->
+    - 1:-> invisible_wall ->
     - 2:-> room2 ->
     - 3:-> room3 ->
     - 4:-> room4 ->
@@ -168,11 +179,13 @@ VAR stamina = STAMINA_TOTAL
 
 === room1
 <- title("Room 1", room1)
+// ~ lucky = true
 1->->
 
 === room2
 <- title("Room 2", room2)
 // ~ lucky = false
+// ~ loseStamina()
 2->->
 
 === room3
@@ -185,6 +198,7 @@ VAR stamina = STAMINA_TOTAL
 
 === room5
 <- title("Room 5", room5)
+// ~ lucky = true
 5->->
 
 === room_end

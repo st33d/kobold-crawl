@@ -14,7 +14,8 @@ There is also a large chair here. You give it a few pokes to see if it's part of
     ~ gainStamina(1)
     You take a moment to rest and sit in the big chair. It creaks suspiciously as you sit down but you eventually let it take all your weight and even lean back.
     It seems quieter in here than in the rest of the dungeon, quite a pleasant reading room despite what it's connected to. When you finally get up again you feel more relaxed.
-    -> opt
+    <- opt
+    ->->
 
 = choose_book
 You decide to read a book, but which one?
@@ -27,11 +28,13 @@ You decide to read a book, but which one?
 ~gold += 3
 You take Get Rich Quick by Bokcha Atii down from its shelf. Its weight feels strangely uneven and the pages seem stuck togeher. You open the cover to find that a hole has been cut through all the pages, turning the book into a container. It holds 3 gold coins.
 You heed the advice of the book's title and take the gold before putting the book back on the shelf.
--> opt
+<- opt
+->->
 
 = rich_read
 You take Get Rich Quick by Bokcha Atii down from its shelf. You flip open the cover to see if more gold coins have managed to find their way into its compartment but it only holds the disappointment of nothing.
--> opt
+<- opt
+->->
 
 = trigger
 ~ temp_chance = 60
@@ -55,8 +58,10 @@ On the floor the book slowly opens its mouth, betting its bite against your spea
             -> END
     }
 }
+~ wisdom++
 You survey the room, making sure that this was the only lesson the book had to teach. Satisfied the area is clear you feel you learned it well: The creator of this place has a terrible sense of humour.
--> opt
+<- opt
+->->
 
 = returning
 You return to the fake library room. <>
@@ -92,7 +97,7 @@ You take The Kobold Emancipation by Hneet Emjinti down from its shelf{| again}. 
 ->passage
 
 = passage
-<i>{&For many years our ancestors gathered around the Great Abyss but no masters came forth. Such is the fate of many kobold tribes who failed to protect their former masters from being slain by the righteous and the greedy.|Some of us trace our lineage to those in servitude to the great dragon Felkar - who was slain by a kobold. This raises an important question: Was Felkar a worthy master, or are kobolds just bad servants?|->finish_book->}</i>
+<i>{&For many years our ancestors gathered around the Great Abyss but no masters came forth. Such is the fate of many kobold tribes who failed to protect their former masters from being slain by the righteous and the greedy.|Some of us trace our lineage to those in servitude to the great dragon Felkar - who was slain by a kobold. This raises an important question: Was Felkar a worthy master, or are kobolds just bad servants?|->finish_book}</i>
 + [Return the book to the shelf.]
     You return the book to its shelf.
     <- opt
@@ -106,7 +111,8 @@ You take The Kobold Emancipation by Hneet Emjinti down from its shelf{| again}. 
     -finish_book == 1:
         ~ wisdom++
 }
-Eventually the Maze Builders came. Four and four limbed gods who pass through stone and command it. Their desire to create labyrinths and our desire to lay traps was a perfect match. Truly a great and worthy master had come to set the kobolds free from waiting.
+<i>Eventually the Maze Builders came forth from the depths. Four and four limbed gods who pass through stone and command it. Their desire to create labyrinths and our desire to lay traps was a perfect match. Truly a great and worthy master had come to set the kobolds free from waiting.</i>
+You've reached the end of the book. It has an illustration of a Maze Builder. It looks vaguely humanoid but with extra arms, legs, and eyes. It looks impressively abyssal.
 + [Return the book to the shelf.]
     You return the book to its shelf.
     <- opt

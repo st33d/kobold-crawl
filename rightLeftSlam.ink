@@ -60,11 +60,11 @@ The wall on {slamOther(slam_run)} side smashes into the floor. You make haste to
 
 = disarm
 ~ gold--
+~ wisdom++
 You feed a gold coin into the spinning gears you see within the walls of the room. There's a clunk, then a click, then a clang. The {slam_side} side wall slowly descends and stops halfway. You wait a while, just to be sure of no surprises. Then you make your way out of the room.
 ->->
 
 = watch
-~ wisdom++
 You wait for the next move the trap will make. The {slam_side} side wall drops down and smacks into the floor before rising again. As it does so you notice some of the stonework has come away on the side walls of the room in response to this endless violence. You can see turning gears and machinery. If you fed something in there - like a gold coin - it could bring the trap to a halt.
 ~ slamChange()
 -> opt

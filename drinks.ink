@@ -8,7 +8,7 @@ VAR bar_chug_rounds = 0
 
 = enter
 ~ bar_drink = RANDOM(0, 2)
-In this room is a drinks bar. Behind a counter and in front of a wall of bottles is a Katar kobold wearing a black waistcoat. Exactly the sort of person you'd expect to see serving drinks and food to your kind. You're not sure how this would go over with other races exploring this place.
+In this room is a drinks bar. Behind a counter and in front of a wall of bottles is a kobold wearing a black waistcoat. You're not sure how this would go over with humans exploring this place.
 She looks up from polishing a glass and says, "care for a drink?"
 <- opt
 ->->
@@ -40,20 +40,30 @@ You return to the room with the bar. {The waitress stands behind the counter as 
         The waitress puts a couple of bottles on the table. One has a red liquid inside, the other has a green liquid.{| The bottles look different to the last time she offered this.}
         "One of these should cure you of all ills and the other will probably kill you", she says. "Which would you like?"-> pick_red_green
     - bar_drink == 1:
+        ~ bar_chug_rounds = RANDOM(3, STAMINA_TOTAL + 2)
         The waitress lifts a heavy wooden keg on to the edge of the bar.
-        "If you drink all of this in one go it will completely heal you and make you lucky", she says. "But if you don't you die. Thirsty?"
-        + "Nope[."]", you say.
-            -> leave
-        + "Yes[." (1-7 effort)]", you say.
-            -> chug
+        "If can you drink all of this in one go it will completely heal you and make you lucky", she says. "but I'm not sure how full it is."
+        -> barrel_opt
+            
     - bar_drink == 2:
         The waitress produces a small flask, apparently empty. She jiggles it and you hear a sloshing noise.
-        "This one is called Invisible Medicine", she explains, "only the fortunate can feel its effects. Would you like some?"
+        "This one is called Invisible Medicine", she explains, "only the fortunate can feel its effects. It will either hurt you or heal you, but it's not fatal. Would you like some?"
         + "No[."]", you say.
             -> leave
-        + "Yes[." (0-1 effort)]", you say.
+        + "Yes[."]", you say.
             -> invisible
 }
+->DONE
+
+= barrel_opt
++ "Nope[."]", you say.
+    -> leave
++ "Yes[."]", you say.
+    -> chug
+* [Examine the barrel.]
+    {bar_chug_rounds}
+    You place a hand on top of the barrel and slosh it from side to side. {bar_chug_rounds - 2 >= stamina:There's a lot inside.|You think you can handle this.}
+    -> barrel_opt
 ->DONE
 
 = invisible
@@ -93,14 +103,14 @@ It is {~a little sour|slighly pungent|a bit too sweet} with a {~smoky|bitter|sal
 = one_effort
 {
     - stamina > 1:
-        ~ stamina--
+        ~ loseStamina()
 }
 You spit it out. {You spit afterwards as well to get the burning sensation out of your mouth.|You can't believe you fell for that again.|You're managing to get a good distance on these spits now. A smattering of burn marks now decorate the floor next to the bar.|You're used to this now but it still takes its toll.} You see the barmaid reach for another bottle but you shake your head.
 ->->
 
 = chug
-~ bar_chug_rounds = RANDOM(3, 6)
 ~ bar_chugs = 0
+{bar_chug_rounds}
 You pull the heavy barrel over to your edge of the bar and put your mouth below the tap on its bottom edge before turning it open.
 -> chug_round
 
@@ -108,7 +118,7 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
 ~ bar_chugs++
 {
     - bar_chugs > 1 && bar_chugs < bar_chug_rounds:
-    ~ stamina--
+    ~ loseStamina()
 }
 {
     - stamina <= 0:
@@ -154,7 +164,7 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
     A moment passes and she pushes both bottles towards you to reiterate the offer.-> pick_red_green
 + {stamina == STAMINA_TOTAL} "Actually I don't need healing or killing[."]", you say.
     "Ah", she takes away the bottles and returns with vial of black bubbling goo. "Perhaps I can interest you in something to change your luck. I'm pretty sure this might not be deadly."-> luck_options
-+ "I'm not thirsty[."]", you reply.
++ {stamina < STAMINA_TOTAL} "I'm not thirsty[."]", you reply.
     "Well I'll still be here if that changes", she says, "good luck."-> leave
 
 
@@ -176,13 +186,13 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
             -else:"Want something to wash it down with?" she asks.
             You give a wave of dissent, you're unable to talk with such a horrible taste in your mouth.
         }
-        + + [Exit.]-> navigate
+        ->->
     + "Maybe later[."]", you reply.
-        + + [Exit.]-> navigate
+        ->->
 
 = heal_all
 ->pour->
-You take a sip of the drink. It tastes good. You drink the rest. <>
+You take a sip of the drink. It tastes good. You drink the rest.
 ~ temp amount = STAMINA_TOTAL - stamina
 ~ gainStamina(STAMINA_TOTAL)
 {
@@ -191,11 +201,15 @@ You take a sip of the drink. It tastes good. You drink the rest. <>
 }
 "Thanks", you say.
 "My pleasure", she replies.
-+ [Exit.]-> navigate
+->->
 
 = one_health_left
 -> pour ->
-~ stamina = 1
+{
+    - stamina > 1:
+        ~ loseStamina()
+}
+
 You knock it back it one. {~Your limbs seize up and you are racked with convulsions|You vomit something red streaked with black for a full {RANDOM(5, 10)} seconds.|You suddenly start sneezing uncontrollably. You sneeze so many times your nose is bleeding.|You black out, vaguely aware of hitting the floor in a very undignified manner. You wake up in great pain.|You feel the drink crawl its way back up your throat and out of your mouth. Choking you in the process. You cough out a horrid brown slug thing that splashes on to the floor. It pulsates before slithering away at frightening speed.} You take a moment to recover.
 "Another?" she asks.
 + "No[."]", you say.-> leave
