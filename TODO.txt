@@ -1,0 +1,67 @@
+=== TODO_LIST
+
+web page:
+	top status bar
+	hook up reset button to clear history as well
+
+
+special ink files:
+
+    functions
+    passages
+
+extra text:
+    ending - new file?
+    passages
+        re-roll next room when backtracking and lucky?
+
+world:
+    objective - get golden apple
+        stone tree and stone bench - floor of pebbles
+        visit from maze builder if rest
+            receive lanyard - free pass on intelligent monsters
+    Kobolds
+        serve the maze-builders of Kreik
+            Xorn like humanoids. 4 and 4 limbed, 2 extra short arms and 2 extra short legs. Can walk through walls.
+        worship any god
+            Used to serve a dragon.
+
+
+
+room list:
+
+canary
+bowl
+trip
+grindstone
+ghost
+fresco
+plinth
+grease
+clicker
+drinks
+finger
+rightLeftSlam
+food
+library
+ceiling
+invisible
+wind
+falconsloth
+blades
+windmill
+beholder
+nim
+flies
+mist
+doubler
+armour
+huff
+black
+custard
+hands
+pudding
+toadstools
+
+->->
+
