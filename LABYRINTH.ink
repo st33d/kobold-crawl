@@ -165,7 +165,7 @@ VAR stamina = 2
 ~ isEnding = false
 { room_index:
     - 0:-> room1 ->
-    - 1:-> falconsloth ->
+    - 1:-> blades ->
     - 2:-> room2 ->
     - 3:-> room3 ->
     - 4:-> room4 ->
