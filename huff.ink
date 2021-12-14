@@ -49,12 +49,12 @@ You level your spear at the huff, your rear hand's palm covering the butt to avo
                 - else:It smacks into the ceiling, appearing to dislodge one of the tiles in the roof. You step to one side but as you do you forget about the errant huff which thumps into your back, sending you staggering back under the roof tile about to fall.
                 You hear a quick scrape from above and have enough time to look stupefied at the threat from above. You don't even manage to raiae your arms in time to feebly fend off the chunk of stone that bears down on you.
                 Fortunately you're knocked unconscious as it crushes you.
-                ->END
+                -> END
             }
         }
     - else: -> bang
 }
-->->
+-> navigate
 
 = bang
 {
@@ -73,10 +73,10 @@ You level your spear at the huff, your rear hand's palm covering the butt to avo
         Then the huff explodes.
         The blast lifts you off of your feet, tumbling through the air. Something hits you hard enough to knock you out. Probably a wall or the floor. Probably on your head.
         The blow is fatal.
-        ->END
+        -> END
     }
 }
-->->
+-> navigate
         
 = returning
 You return to the room <>
@@ -95,8 +95,8 @@ You return to the room <>
     -else:
         where the beligerent huff used to be. <>
         {
-            - bang:There are strips of skin upon the ceiling and walls. If you looked hard enough you might be able to find some part of its head, so you're not going to.
+            - bang:{There are strips of skin upon the ceiling and walls. If you looked hard enough you might be able to find some part of its head, so you're not going to.|}
             - else:The room remains empty of threat or challenge. {Satisfied you've seen the last of the creature, you make your way out.|}
         }
-        ->->
+        -> navigate
 }

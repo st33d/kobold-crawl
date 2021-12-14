@@ -30,21 +30,29 @@ You prod the mire with the butt of your spear and it puts up a gelatious resista
 = swim
 You take a run up and dive on to the pool, only to bounce when you discover it has a rubbery surface. A second later the murk begins to sag and feel sticky.
 ~ temp_chance = 60
--(escape)
+- (escape)
 + [Try to escape. (%{temp_chance})]
-    
-    You wobble your way on to your feet. As you push against the pool's skin it hardens. You find that a good stamping routine keeps you afloat on this strange substance. With constant sticky stamps you march towards an exit.
-    -> go_direction(1)
+    <- rollChance(temp_chance)
+    {
+        - isSuccess:You wobble your way on to your feet. As you push against the pool's skin it hardens. You find that a good stamping routine keeps you afloat on this strange substance. With constant sticky stamps you march towards an exit.
+        - else:
+            ~ loseStamina()
+            {
+                - stamina > 0:You struggle up to your feet but you're begining to sink. With great effort you pull your legs free and attempt a hurried march to the pool's opposite edge. Each successive stamp gives more resistance as you escape.
+                - else:-> sink
+            }
+    }
+    + + [Exit.]-> go_direction(1)
 * [Look for something to grab.]
     ~ wisdom++
-    ~ temp_chance += 10
+    ~ temp_chance += 15
     Scanning the room you calculate that you have landed roughly in the center of the pool, as far as possible from anything to hold on to. Looking into the pool you see cloudy darkness, as if its depths could go on forever. Back near the edge where you leapt you can see a glint of gold forever drifting down, rocked by your hasty crash, never to be seen again.
     You've learned a lot from this position in the center of the room.
-    ->escape
+    -> escape
 
 = run
 You take a step back and then dash across the pool.
-<- rollChance(temp_chance + 20)
+<- rollChance(temp_chance + 15)
 {
     -isSuccess:As you trot heavy footed across the pool it chooses to hold your weight.
     -else:

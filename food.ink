@@ -5,7 +5,7 @@
 = enter
 In this room is a table laden with food. Large joints of meat, bread cakes, and fruit make a ramshackle pile of provisions.
 <- opt
-->->
+-> navigate
 
 = opt
 * [Take a bite.]
@@ -19,7 +19,7 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
     <i>A banquet fit for a dragon.</i>
     But your tribe doesn't serve a dragon.
     <- opt
-    ->->
+    -> navigate
 
 
 = returning
@@ -29,7 +29,7 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
     - bite:-> return_bite
     - else: You return to the room with the table of food.
         <-opt
-        ->->
+        -> navigate
 }
 
 = stone
@@ -37,7 +37,7 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
 ~ gold += 2
 You pick up an apple from the pile, it feels odd. Tapping it against the table makes a stony sound. You find that the rest of the food here is also made of stone, painted to look real and edible.
 Frustrated you search further and find 2 gold coins at the bottom of a bowl of petrified pears. It's something at least.
-->->
+-> navigate
 
 = bite
 You reach towards an apple and it splits open revealing sharp teeth. The other apples follow suit, hissing at you from their hideous little mouths.
@@ -50,11 +50,11 @@ You reach towards an apple and it splits open revealing sharp teeth. The other a
 
 = return_bite
 You return to the room with the table of food. Its monstrous apple guardians, open their jagged mouths to snarl at you.
-->bite_opt
+-> bite_opt
 
 = return_stone
 You return to the room with the lithlogical banquet. It's still not edible.
-->->
+-> navigate
 
 = fight
 You strike with your spear impaling the nearest apple-thing.
@@ -72,7 +72,7 @@ Its siblings <>
 ~gold++
 After you dispatch the apples you use your spear to prod the remaining food. It seems safe. You even find a gold coin nestled amoung the produce.
 <- eat_opt
-->->
+-> navigate
 
 = eat
 You return to the room with the <>
@@ -82,7 +82,7 @@ You return to the room with the <>
 }
 The smell of dead apples fills the air.
 <- eat_opt
-->->
+-> navigate
 
 = eat_opt
 + {not consume} [Eat.]
@@ -93,9 +93,9 @@ The smell of dead apples fills the air.
     }
 
 = consume
-~ gainStamina(3)
+~ gainStamina(2)
 You eat a hearty meal of meat and bread. Even using the table as a seat to rest your legs.
-->->
+-> navigate
 
 
 

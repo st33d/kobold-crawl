@@ -13,7 +13,7 @@ This room you've walked into is surprisingly empty. Your spear is raised to guar
     - else:<- restore
 }
 <- opt
-->->
+-> navigate
 
 = deduct
 ~ lucky = false
@@ -33,7 +33,7 @@ You stop for a moment{, sure that some sort of trap might spring. Proceeding wit
 ~ wisdom++
 You pace uncertainly around the room's perimeter. Something feels off about it. You know very little about magic such as curses or wards but you can feel a hidden force here trying to tinker with your fortune. You make a note of this place: the unlucky room.
 <- opt
-->->
+-> navigate
 
 = returning
 You return to the {unlucky:unlucky|seemingly empty} room. You're crossing its center as -

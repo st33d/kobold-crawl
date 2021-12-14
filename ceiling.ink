@@ -7,7 +7,7 @@ As you step into this room the ceiling begins to grind slowly downwards. A class
 -> opt
 
 = opt
-~ temp_chance = 50
+~ temp_chance = 30
 + [Wait.]-> wait
 * {!returning}[Run out of the room.]
     You dash through the room and out, not waiting for the trap to toy with you further.
@@ -61,7 +61,6 @@ As you step into this room the ceiling begins to grind slowly downwards. A class
     -else:You pause and the roof smashes down into the floor in reply. It sulks, refusing to move. {|It seems to have tired of this game.}
         + [Return the way you came]-> go_direction(-1)
 }
-->DONE
 
 = returning
 You return to the room with the crushing ceiling. {It seems to sense your presence and taunts you by lowering.|It greets you with its familar grind to the floor.}
@@ -69,7 +68,7 @@ You return to the room with the crushing ceiling. {It seems to sense your presen
 
 = knees
 You walk through the room with knees bent ready to make an escape. The trap appears not to care.
-->->
+-> navigate
 
 = run
 You dash forwards, {~your feet raising dust and clawed toes scraping against the flagstones.|a squeak sounding from your back foot as it fights to push you ahead.|ducking low with your tail outstretched to counterbalance your charge.}
@@ -81,7 +80,7 @@ You dash forwards, {~your feet raising dust and clawed toes scraping against the
 
 = success
 You accelerate towards an exit with ease. The roof of the room slowly closing after you.
--> go_direction(1)
++ [Exit.] -> go_direction(1)
 
 = failure
 ~ loseStamina()
@@ -91,5 +90,5 @@ You accelerate towards an exit with ease. The roof of the room slowly closing af
         -> END
     - else:
         You {stumble into a roll, scrambling to retrieve your spear before making a mad crawl to an exit.|are forced to slide across the floor as the ceiling threatens to leave no escape. You barely manage to tuck your tail in before it slams shut.|are forced to run practically on all fours as the ceiling accelerates downwards. {Your repeated transits must have excited it.|}}
-        -> go_direction(1)
+        + [Exit.] -> go_direction(1)
 }

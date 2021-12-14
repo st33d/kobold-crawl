@@ -24,35 +24,35 @@ You return to the room of flies. <>
     - not dead_flies:They still fill the room. An angry cloud that denies you the opportunity to pass.-> opt
     - else:-> dead_flies
 }
+
 = swat
 <- rollChance(temp_chance)
 {not isSuccess:
     ~loseStamina()
 }
 {
-    -stamina <= 0:->exhausted
+    -stamina <= 0:
+        {
+            - flies > 0: You frantically stab, stamp, and slap every fly in the room. Finally the buzzing ceases and you 
+            - else: You strike out at every fly in the room. A ceaseless montage of slaps, stabs, and stamps. There are too many. You 
+        }<> collapse in exhaustion. You know that if you pass out you will surely be dispatched in your sleep. You close your eyes for a brief moment and never open them again.
+        -> END
     -else:
-    {You thrust your spear into the mass of flies, again and again. Stabbing and twirling. You throw a kick in there as well for effect. You're pretty sure you managed to get at least half of them.|You put down your spear and resort swatting the flies with your hands. It takes some time but eventually you murder every last one of them.-> dead_flies }
-    <- opt
-    + [Get out of there.]-> go_direction(1)
+        {You thrust your spear into the mass of flies, again and again. Stabbing and twirling. You throw a kick in there as well for effect. You're pretty sure you managed to get at least half of them.|You put down your spear and resort swatting the flies with your hands. It takes some time but eventually you murder every last one of them.-> dead_flies }
+        <- opt
+        + [Get out of there.]-> go_direction(1)
 }
 
 = dead_flies
 The floor and walls {are|are still} covered in a paste of dead insects.
 {not get_gold:You notice slivers of yellow shining through the pulp. Gold perhaps.}
 <- gold_getting
-->->
+-> navigate
 
 = gold_getting
 * [Get the gold.]-> get_gold
-->->
 
 = get_gold
 You find {loot(2, 4)} gold coins.
-->->
+-> navigate
 
-= exhausted
-{
-    - flies > 0: You frantically stab, stamp, and slap every fly in the room. Finally the buzzing ceases and you 
-    - else: You strike out at every fly in the room. A ceaseless montage of slaps, stabs, and stamps. There are too many. You 
-}<> collapse in exhaustion. You know that if you pass out you will surely be dispatched in your sleep. You close your eyes for a brief moment and never open them again. -> END

@@ -4,23 +4,23 @@
 
 = enter
 You see a suit of black armour that stands in the center of the room. Wisps of mist leak from the joins between the plates. It turns to look at you with an open face helmet filled with nothing but smoke. Then it thuds towards you.
-->opt
+-> opt
 
 = returning
 You return to the room with the black suit of armour. <>
 {
     - attack_success > 1:It lies in pieces across the floor, quietly hissing discontent.
+        -> navigate
     - attack_success == 1:It stands guard, its arms on the floor. Angry smoke churns out of its arm sockets and helmet.
-        ->opt
+        -> opt
     - attack_success == 0:It moves to intercept you, arms wide for a deadly embrace.
-        ->opt
+        -> opt
 }
-->->
 
 = opt
 ~ temp chance_flee = 70 + attack_success * 10
-~ temp chance_attack = 70 + attack_success * 10
-+ {attack_success < 2} [Flee! (%{chance_flee})]
+~ temp chance_attack = 50 + attack_success * 10
++ {attack_success < 2} [Run past it. (%{chance_flee})]
     <- rollChance(chance_flee)
     {
     - isSuccess:-> flee_success
@@ -33,6 +33,7 @@ You return to the room with the black suit of armour. <>
     - isSuccess:-> attack_success
     - else: -> attack_failure
     }
++ [Return the way you came.]-> go_direction(-1)
 
 = flee_failure
 ~ loseStamina()
@@ -45,11 +46,11 @@ You return to the room with the black suit of armour. <>
             - attack_success == 1:It kicks your tail with a steely boot you as you pass.
         }
 }
-->->
++ [Exit.]-> go_direction(1)
 
 = flee_success
 It tries to block your path but you fake a {&left|right} and dodge it easily.
-->->
++ [Exit.]-> go_direction(1)
 
 = attack_success
 {
@@ -92,4 +93,4 @@ It tries to block your path but you fake a {&left|right} and dodge it easily.
     You kick the pieces of armour away from one another. They let out mournful plumes of vapour. The helmet you leave for last - an inscription on the back of it reads, "eternally guarded, contents discarded".
 -
 Among the debris you notice a glint of yellow. You find and pick up {loot(2, 4)} gold coins.
-->->
+-> navigate

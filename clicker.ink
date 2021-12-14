@@ -11,7 +11,7 @@
 You place a foot down in this room and hear a foreboding click.
 * [Hold your position.]
     You stay perfectly still for a minute. Nothing happens.
-    ->->
+    -> navigate
 * [Remove your foot, slowly, and return the way you came.]-> go_direction(-1)
 
 = click2
@@ -20,12 +20,12 @@ You return to the "clicking room".
     Your scaly toes caress the stone floor as gently as you can.
 * [Prod the floor with your spear.]
     You gently poke the floor with the spear's blade. 
-- Another click. Silence follows. Further probing has no effect.
+-
+Another click. Silence follows. Further probing has no effect.
 * [Search the room, properly.]
     You check every surface and every nook for answers. Rapping walls and floor with the butt of your spear you make a circuit of the room - discovering almost nothing. Through one crack in one corner you see a glint of gears poised to activate a mechanism. The gap is too small to wedge anything inside.
     Next time you return here something will happen, you're sure of it.
-    ->->
-->->
+    -> navigate
 
 = click3
 ~ temp chance_backflip = 50
@@ -55,8 +55,8 @@ You pause at the entrance to the room that clicks.
 = sprung
 ~gold += 4
 You inspect the holes that produced the darts and find a gold coin in each. A strange reward for your patience but you'll take what you can get.
-->->
+-> navigate
 
 = returning
 You enter the room that used to click. {You convince yourself for a moment that you heard it click again, but it was likely just one of your joints.|Its silence washes over you}
-->->
+-> navigate

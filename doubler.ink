@@ -1,6 +1,6 @@
 VAR quaid_dir = "left"
 VAR quaid_hit = false
-VAR quaid_dead = 0
+VAR quaid_death = 0
 VAR quaid_run = false
 
 === function swapQuaidSide()
@@ -37,7 +37,7 @@ In this room waits a beast your kind call the quaid doubler.  Two tall monsters 
 
 = returning
 {
-    - quaid_dead > 0:You return to the room with the dead quaid doubler. <>->dead_quaid
+    - quaid_death > 0:You return to the room with the dead quaid doubler. <>->dead_quaid
     - else:
     {swapQuaidSide()}
     You return to the room with the quaid doubler. {~The one on the {quaid_dir} flexes its muscles at you.|The figure on the {quaid_dir} points at their eyes with two fingers, then points at you.|The two figures appear to be engaged in some sort of mock wrestling match. They break it up as you enter. It looked like the one on the {quaid_dir} was winning.}
@@ -46,16 +46,18 @@ In this room waits a beast your kind call the quaid doubler.  Two tall monsters 
 
 = dead_quaid
 {
-    - quaid_dead == 1:Slivers of meaty skin can be seen on every surface.
-    - quaid_dead == 2:Its meaty sack lies on the floor. {|For a moment you think you seek a second sack next to it. But no. You keep your distance anyway.|}
+    - quaid_death == 1:Slivers of meaty skin can be seen on every surface.
+    - quaid_death == 2:Its meaty sack lies on the floor. {|For a moment you think you seek a second sack next to it. But no. You keep your distance anyway.|}
 }
 {get_gold == false:{You notice 2 gold coins on the floor. You're certain they weren't there before.|The 2 gold coins are still on the floor.}}
-- (dead_opt)
+<- dead_opt
+-> navigate
+
+= dead_opt
 * (get_gold) [Pick up the gold.]
     ~gold += 2
     You pick up the coins, a quaid doubler is embossed on each. Hopefully it's still legal tender.
-    -> dead_opt
-->->
+    -> navigate
 
 = right_or_left
 + [Right.]
@@ -87,10 +89,10 @@ You take a moment to examine the enemy. The two pillars of knobbly virility show
 
 = running
 You dash towards the one on the {quaid_dir}.
-<- rollChance(80)
 {
     - quaid_hit:Both figures bend over to grab you. A wall of brawn is about to smash into your snout but miraculously you pass through it. The illusion continues to shimmer and waver from your passage as you head towards an exit.
     - else:
+        <- rollChance(80)
         {
             - isSuccess:Your feet skid on the flagstones and you end up sliding in-between its legs.
             You'll take it. Springing to your feet behind the doubler you bolt towards an exit.
@@ -113,18 +115,18 @@ You charge towards the {quaid_dir} one.
     - quaid_hit:
         {
             - isSuccess:
-                ~quaid_dead = 1
+                ~quaid_death = 1
                 You thrust your spear towards its belly but it impressively catches the tip between its abs. The rest of the doubler's muscles inflate to support its grip. You give the spear another shove and the swollen beast explodes with a pop.
                 Strips of meaty skin fall the floor and a sweaty smell fills the room. The illusion is nowhere to be seen.
-                ->->
+                -> navigate
             - else:
                 ~ loseStamina()
                 {
                     - stamina > 0:
-                        ~quaid_dead = 2
+                        ~quaid_death = 2
                         Your spear drives deep into its belly with a squeaking noise. The doubler looks down at you before striking you with {RANDOM(3, 5)} punches.
                         You manage to wrestle your spear free and air begins rush out of the hole. The quaid's illusion looks on in horror as its source deflates into a lifeless sack. Then it fades, allowing you to leave without being judged.
-                        ->->
+                        -> navigate
                     - else:
                         "Ha ha ha!" it laughs, "you think this is the real quaid?"
                         You hesitate. No one mentioned these things could talk. Stupified, you turn to attack the other one.
@@ -134,17 +136,17 @@ You charge towards the {quaid_dir} one.
                 }
         }
     -else:
-        Your spear passes through it<>
+        Your spear passes through it.
         {
-            - isSuccess:. You almost stumble but manage to turn your lunge into a sprint. Looks like you're going to run away instead. The illusion shimmers as you run through it and make for an exit.
+            - isSuccess:You almost stumble but manage to turn your lunge into a sprint. Looks like you're going to run away instead. The illusion shimmers as you run through it and make for an exit.
             - else:
                 ~ loseStamina()
                 {
-                    - stamina > 0:. You stagger forwards and the real quaid gives you kick that sends you sprawling across the floor. You pick yourself up, spear raised towards the real one, and edge towards an exit.
+                    - stamina > 0:You stagger forwards and the real quaid gives you kick that sends you sprawling across the floor. You pick yourself up, spear raised towards the real one, and edge towards an exit.
                     - else:
-                    , leaving you stumbling. You turn to attack the other one but it's moved behind you.
-                    Suddenly two strong hands grab your snout and the back of your head. They force you to look to the {quaid_dir} very quickly. There is a cracking noise coming from your neck and then you can't feel anything.
-                    -> END
+                        You're left stumbling. You turn to attack the other one but it's moved behind you.
+                        Suddenly two strong hands grab your snout and the back of your head. They force you to look to the {quaid_dir} very quickly. There is a cracking noise coming from your neck and then you can't feel anything.
+                        -> END
                 }
         }
         + [Exit.]-> go_direction(1)

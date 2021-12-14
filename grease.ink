@@ -14,8 +14,7 @@ You step into this room and begin to slide uncontrollably across the floor. Some
     Wedging the butt of your spear into a gap in the flagstones, your slide turns into a slow orbit. After {RANDOM(2, 5)} turns trying to brake with your feet turned sideways, you've created a clean spot in the center of the room. You have come to a halt at last.
     Under the grease nearby you spot a gold coin. Reaching out from your clean spot you fish it in with your spear.
     <- opt
-    <- navigate
-    -> DONE
+    -> navigate
 + {not stay} [Do nothing and slide out out of the room.]
     You continue your slide unabated until you've left the room completely. 
     -> go_direction(1)
@@ -25,8 +24,7 @@ You step into this room and begin to slide uncontrollably across the floor. Some
     <i>Bye.</i>
     You hope it's no longer relevant.
     <- opt
-    <- navigate
-    -> DONE
+    -> navigate
 
 = returning
 You return to the greasy room, <>
@@ -35,7 +33,5 @@ You return to the greasy room, <>
         -> opt
     -else:drifting over to the clean spot before coming to a stop.
         <- opt
-        <- navigate
-        -> DONE
+        -> navigate
 }
--> opt

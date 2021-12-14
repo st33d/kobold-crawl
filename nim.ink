@@ -13,7 +13,7 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
 -> opt
 
 = opt
-~ temp_chance = 60
+~ temp_chance = 30
 + [Return the way you came.]-> go_direction(-1)
 * (nim) "I'm not a snack[."]", you say.
     The troll leans towards you and speaks low and slow:
@@ -29,7 +29,7 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
     You may be forced to duel this monster. Or worse, it might want to recite another poem.
     -> opt
 + {nim && not game} "I challenge you to a duel[".]", you say.
-    ->lets_play
+    -> lets_play
 + {game && nim_losses < 2}"I challenge you to a rematch[".]", you say.
     "What?" says the troll. "You lost. Why should I play you again?"
     * * "Double the winnings[."]", you explain.
@@ -58,7 +58,7 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
     The troll lines up the stones. There are 8 in total.
     ~nim_turns = 0
     ~stones = STONES
-    ->game
+    -> game
 + {stamina > 1} [Run through the troll's limbs. (-1 stamina)]
     ~ loseStamina()
     -> run_thru
@@ -72,7 +72,7 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
     }
     
 = run_thru
-{~You dash to the left and the troll reaches for you, only for you to dive under its grasp into a roll.<br>"Come back here!" bellows the troll.<br>You ignore its request as you spring to your feet and make your exit.|You run straight towards the troll and then double back to slide under the arms that swoop in behind you. Then you leap up and start running towards an exit.}
+{~You dash to the left and the troll reaches for you, only for you to dive under its grasp into a roll.<br><br>"Come back here!" bellows the troll.<br><br>You ignore its request as you spring to your feet and make your exit.|You run straight towards the troll and then double back to slide under the arms that swoop in behind you. Then you leap up and start running towards an exit.}
 + [Exit.]-> go_direction(1)
 
 = dead
@@ -124,7 +124,7 @@ Huge scything teeth of stone cut into you again and again. Then it stops, an inr
 = win
 "That's never happened before", the troll grumbles. It looks at its fingers, counting, trying for the first time to understand its ritual of winning. The troll appears to have forgotten you're there, or perhaps it would rather forget this happened.
 <- win_opt
-->->
+-> navigate
 
 = win_opt
 * "Did they leave any gold with you?"[] you ask.
@@ -133,7 +133,7 @@ Huge scything teeth of stone cut into you again and again. Then it stops, an inr
     The monster reaches behind itself, paws around, and then throws a pouch that hits the floor with a satisfying jingle.
     You pick it up and find 8 gold pieces inside. The troll resumes counting on its fingers.
     <- win_opt
-    ->->
+    -> navigate
 
 
 = returning
@@ -142,7 +142,7 @@ You return to the room with the mountain troll. <>
     - win:
         It looks up from its manual arithmetic to shuffle itself away from you. It can't move very far.
         <- win_opt
-        ->->
+        -> navigate
     - else:
         It lifts its long arms off of the floor, ready to grab you.
         "My snack has returned", it says.
@@ -158,28 +158,28 @@ You return to the room with the mountain troll. <>
 = what
 * (lose) "What happens if I lose?"[] you ask.
     "I eat you", it replies, grinning with a mouth full of flint blades.
-    ->what
+    -> what
 * {lose} "How do I win?"[] you ask.
     ~wisdom++
     "Oh that's easy", it says, "all you have to do is make sure there's four -
     "Hang on a minute, you're not winning, I'm winning." It glares at you, unwilling to reveal more of its strategy.
-    ->what
+    -> what
 * {lose} "What happens if I win?"[] you ask.
     It frowns, the troll clearly wasn't planning on losing.
     "Erm. You eat me?"
     * * "It's a deal[."]", you say.
         It nods solemnly, reassessing what sort of threat you might be.
-        ->what
+        -> what
     * * "You could just let me go[."]", you say.
         It pauses to consider how much of an injury this would be.
         "Okay", it shrugs.
-        ->what
+        -> what
 * (rules) "What are the rules?"[] you ask.
     "We each take turns to remove rocks from this line. We can take one, two, or three rocks on our turn. The one who takes the last rock wins.
     "You can go first", it says, showing its sharp stone teeth at you.
-    ->what
+    -> what
 * {rules} "Let's play[."]", you say.
-    ->game
+    -> game
 
 
 === function takeStone(n)

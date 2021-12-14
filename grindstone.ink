@@ -5,21 +5,21 @@
 = enter
 You enter this room and find a grindstone sticking out of the floor. It has a seat and foot pedals next to it made of rock. You give one of the pedals a push with your foot. It takes all of your weight to push it down. The grindstone executes a lazy spin in reply before coming to a halt.{stamina == 1: If you weren't so exhausted you'd probably make use of it.}
 <- opt
-->->
+-> navigate
 
 = opt
-+ {stamina > 1} [Sharpen your spear. (-1 stamina)]-> sharpen
++ {stamina > 1 && TURNS_SINCE(-> sharpen) != 0} [Sharpen your spear. (-1 stamina)]-> sharpen
 * {sharpen} [Inspect the grindstone.]
     ~wisdom++
     You give the device further inspection. You can't find a way to make operating it easier, its parts are all made of the heaviest carved stone. They probably didn't want you to leave with any of it.
     On the side of the wheel you notice little pictures of kobolds. You lean on the foot pedal once more and as the wheel spins the drawings blur and come together to form an animated kobold running away from something. Every revolution it chances a look behind at an unseen predator.
     <- opt
-    ->->
+    -> navigate
 
 = returning
 You return to the room with the grindstone. It persists in being awkwardly beneficial.{stamina == 1: If you weren't so exhausted you'd probably make use of it.}
 <- opt
-->->
+-> navigate
 
 = sharpen
 You sit down to sharpen your spear. <>
@@ -33,4 +33,4 @@ You sit down to sharpen your spear. <>
     -else:, but as you do you notice your spear is pretty sharp already. Perhaps you should tackle a few more rooms before using the grindstone.
 }
 <- opt
-->->
+-> navigate

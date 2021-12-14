@@ -11,12 +11,12 @@ There's a stone bench here, of the sort with a back rest that one would see in a
 You're not entirely sure if this message is for you, or if it's a trick. You open the lunch box and inside you find a cheese sandwich and what looks like a healing potion.
 ~ inventory += golden_apple
 <- opt
-->->
+-> navigate
 
 = returning
 You return to the center of the labyrinth.
 <- opt
-->->
+-> navigate
 
 = opt
 * [Take a break.]-> break_time
@@ -25,7 +25,7 @@ You return to the center of the labyrinth.
     You pick up the potion and examine it further, uncorking it and testing it with a claw. After tasting a tiny bit you're sure it's a healing potion.
     You put it in your bag.
     <- opt
-->->
+    -> navigate
 
 = break_time
 You sit down and take a well deserved rest. Even going so far as to eat the cheese sandwich. It's surprisingly good.
@@ -41,4 +41,4 @@ You feel a bit embarrassed at having been caught slacking off.
 * [Present the golden apple.]
     You take out the 
 -
-->->
+-> navigate

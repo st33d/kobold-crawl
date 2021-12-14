@@ -10,18 +10,18 @@ In the center of this room you see a simple stone plinth. It is lit from a hole 
 -> opt
 
 = opt
-+ {plinth_took == 0}[Knock the coins off the plinth {trapped:again }with your spear.]->trapped
++ {plinth_took == 0}[Knock the coins off the plinth {trapped:again }with your spear.]-> trapped
 + {plinth_took > 0 && plinth_took < plinth_coins}[Knock the coin off the plinth {trapped:again }with your spear.]-> trapped
 + {plinth_took == 0}[Walk past the plinth.]
     You walk past the display, side-eyeing the tempting offer it presents. {There seems to be no other traps in this room.|}
     -> go_direction(1)
 + {plinth_took == 0}[Return the way you came.]-> go_direction(-1)
-+ {plinth_took == plinth_coins-1}[Leave through the open exit.]-> go_direction(-1)
++ {plinth_took == plinth_coins-1}[Return through the open exit.]-> go_direction(-1)
 
 = returning
 {
     - lift:You return to the room with the upside-down plinth. It teeters a little - threatening to reply to your footfalls - but holds its position.
-        ->->
+        -> navigate
     - else:
         You return to the room with the stone plinth. <>
         {
@@ -50,7 +50,7 @@ You pick up the gold coin{plinth_took == plinth_coins-1: |s} and consider your n
     ~ wisdom++
     You grip the bars on one of the exits and struggle to lift it to no avail. Defeated, you turn back to the plinth and you're suddenly struck with an idea.
     You try lifting the plinth. Finding it unconnected to the floor you turn it upside-down, its financial platform now pressed against the flagstones. The bars in front of the exits all rise up. Perhaps with some study you'd be able to discern why this logic can defeat the trap but you're already leaving the room.
-        ->->
+        -> navigate
 
 = replace_coins
 You restore the stack of coins on the plinth. {plinth_took == plinth_coins:The bars on all the exits rise up|The remaining exit-bars rise up}, allowing you to leave at your leisure.

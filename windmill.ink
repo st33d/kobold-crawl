@@ -29,27 +29,27 @@ A horizontal windmill of blades takes up the entire room. Eight double edged swo
                 -> END
         }
     }
-    ->->
+    -> navigate
 
 
 + [Return the way you came.]-> go_direction(-1)
 
 = returning_broken
 The contraption remains dismantled. You tread between its swords lying on the floor.
-->->
+-> navigate
 
 = returning
 You return to the windmill of blades. <>
 {
-    -break:->returning_broken
-    -else: They are motionless and sharp.
+    - break:-> returning_broken
+    - else: They are motionless and sharp.
 }
 -> opt
 
 = crawl
 ~ loseStamina()
 You drag yourself across the floor. The steel vanes above you keep their vigil and give you a chance to pass.
-->->
++ [Exit.]-> go_direction(1)
 
 = break
 <- rollChance(temp_chance)
@@ -66,4 +66,4 @@ You drag yourself across the floor. The steel vanes above you keep their vigil a
 }
 ~gold += 2
 Inside the hub you can see a gold coin. That must have been the reason you were able to disable it. You use your spear head to dig it out and find another beneath it. You dig that one out too. You check the hub for anything else worth looting but find nothing.
-->->
+-> navigate

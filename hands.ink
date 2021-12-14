@@ -3,10 +3,11 @@
 {-> enter | -> returning}
 
 = enter
-Reaching up from cracks in the floor of this room are zombified arms. They make a rotting field whose crop waves in a wind of hunger. One by one they press fingers and thumb together, and point towards you.-> opt
+Reaching up from cracks in the floor of this room are zombified arms. They make a rotting field whose crop waves in a wind of hunger. One by one they press fingers and thumb together, and point towards you.
+-> opt
 
 = opt
-~ temp_chance = 70
+~ temp_chance = 60
 + [Run through the room. (%{temp_chance})]-> run
 * [Look for another route]
     ~ wisdom++
@@ -16,7 +17,7 @@ Reaching up from cracks in the floor of this room are zombified arms. They make 
 + [Return the way you came.]-> go_direction(-1)
 
 = returning
-You return to the room of zombie arms. {not first:-> first ->|-> loop ->}
+You return to the room of zombie arms. {-> first ->|-> loop ->}
 -> opt
 
 = first

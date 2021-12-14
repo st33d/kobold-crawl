@@ -6,10 +6,9 @@
 On the floor of this room you see a strange armature holding circles of glass. One large piece of glass connected to a crown smaller ones.
 You look up from it to see a big ball of floating reptilian flesh. The front side of it consists of just a huge eye and a mouth full of sharp teeth. Ten stalks, each with a different coloured eye on the end, extend from the top of the ball. Its chromatic gaze falls upon you, eleven squinting eyes - your grip on your spear tightens. Then it looks away in confusion, its large mouth mumbles something inaudible.
 -> opt
-->->
 
 = opt
-~ temp chance_sneak = 70
+~ temp chance_sneak = 70 + have_you_seen * 10
 ~ temp chance_hello = 60
 + {not gone} [Sneak past the monster. (%{chance_sneak})]
     You try to sneak past the monster...
@@ -22,13 +21,11 @@ You look up from it to see a big ball of floating reptilian flesh. The front sid
     ->spectacles
 + {not gone} [Return the way you came.]-> go_direction(-1)
 * {gone} [Lift the marked slab.] -> lift_slab
-    
-    ->->
 
 = lift_slab
 ~gold += 3
     Wedging your spear's head between the flagstones, you lift up the slab that the monster marked for you. Underneath you find 3 gold coins. You collect them and let the slab fall back into place.
-->->
+-> navigate
 
 = returning
 You return to the room <>
@@ -36,8 +33,8 @@ You return to the room <>
     -not spectacles:with the short-sighted monster. Its eleven eyes survey the room inefficiently. The armature of glass circles still sits on the floor below it.
         -> opt
     -else:where the short-sighted monster used to be. {not lift_slab:On the floor is the X the creature marked for you, its promise of gold. <- opt|The tracks left by its attempt to shoot you are just as you left them.}
+        -> navigate
 }
-->->
 
 = talk
 ~ temp chance_hello = 60
@@ -46,7 +43,7 @@ The creature spins round to face you and a <>-> blast ->
     * "Don't shoot[."]", you say.
         You brace for another volley of beams but the monster squints. It floats towards you, stopping uncomfortably close. You could stab it in that big scary eye but the other ten are staring at you.
         "Have you seen my spectacles?"
-        ->have_you_seen
+        -> have_you_seen
     * "You missed[." (%{chance_hello})]", you say.
         <- rollChance(chance_hello)
          A <>-> blast ->
@@ -55,18 +52,18 @@ The creature spins round to face you and a <>-> blast ->
         * * "No[."]", you say.
 -
 "I see", it muses, "well, truthfully I can't see much of anything right now." It floats towards you, stopping uncomfortably close. "Have you seen my spectacles?" it asks.
-->have_you_seen
+-> have_you_seen
     
 = have_you_seen
-~ temp chance_sneak = 70
-* "Yes[."]", you say. <>->spectacles
+~ temp chance_sneak = 70 + have_you_seen * 10
+* "Yes[."]", you say. <>-> spectacles
 * "No[."]", you say.
     The monster turns left and right in agitation.
     "They must be in this room", it says. The creature turns to face vaguely in your direction again. "They're made of lots of pieces of glass." It must be referring to the armature you can see on the ground.
     * * {talk && not spectacles} [Give the monster its spectacles.]
-        ->spectacles
+        -> spectacles
     * * [Sneak out of the room. (%{chance_sneak})]
-        ->sneak
+        -> sneak
 
 = spectacles
 You pick up the armature of glass from the floor and present it to the monster. Its big eye dilates and the mouth gives you a horrifying grin. Gingerly it wraps some of its stalks around the strange frame to augment itself.
@@ -76,9 +73,9 @@ You pick up the armature of glass from the floor and present it to the monster. 
 * "No[, I'm a dwarf."]", you say, "I'm a dwarf."
 -
 "Very funny", it replies. "What doesn't amuse me is some of your kind snatching my glasses and putting me -", it pauses to survey the room again, "in some kind of maze."
--(talky)
+- (talky)
 * {Cake} "What does the big eye do?"[] you ask.
-    "My largest eye sees the absence of magic", it says,  "If it's boring, I know about it. I can project this as well but it's considered rude."->talky
+    "My largest eye sees the absence of magic", it says,  "If it's boring, I know about it. I can project this as well but it's considered rude."-> talky
 
 * (beholder) "What are you?"[] you ask.
     "Can't say, legal reasons", it explains.
@@ -89,37 +86,37 @@ You pick up the armature of glass from the floor and present it to the monster. 
     * * "What do your kind do?"[] you ask.
         "We are the eye tyrants. We are not of your world. We travel and we conquer using our superior vision and magic." It lets that sink in for a second. "Personally I'm not that fond of travelling. Allergies. You'd be surprised at what sets them off when you're from another dimension."
     - -
-    ->talky
+    -> talky
 * {beholder} "How are you able to shoot those beams?"[] you ask.
         "When your vision gets really good you can project an image as well as recieve it.
         "From each of my lesser eyes I can emit: delusion, paralysis, fear, sloth, negation, force, torpor, petrification, disintegration, and cake."
         * * (Cake) "Cake?"
             "Ah. It's not actually cake, it's death. I used to ask trespassers what beam they'd like to be shot with. No one ever asked for death so I renamed it."
         - -
-        ->talky
+        -> talky
 * "I didn't put you here[."]", you say.
     "Obviously", it replies. "With my spectacles on I can see what you ate this morning, what you're thinking, and what your ancestry is." It squints at you. "You are a different kind of kobold."
     * * "I get that a lot[."]", you say.
         The monster does something with its eyestalks that might be a shrug.
         "So do I", it says.
-        ->talky
+        -> talky
     * * "Thanks[."]", you say.
         "You're welcome", it says.
-        ->talky
+        -> talky
 * "Can I go now?"[] you ask.
-    ->gone
+    -> gone
     
 = gone
 "Oh!" it says, "certainly. Indeed I too shall be going as well. I will return to obliterate the fools who put me here, but rest assured you've earned your life."
     A ray from one of its eyes takes you by surprise. It carves an X on a flagstone near you.
     "There's gold under that one", it says. As you look at the slab of stone you are buffeted by a whoosh of air. You look back to where the monster was but it has vanished. Only an unpleasant odor remains, it smells like burning claws.
     <- opt
-->->
+-> navigate
 
 = sneak
 {
     - isSuccess: Keeping your footfalls silent you tread carefully around the monster. You manage to stay out of its line of sight - no easy task when there are eleven of them - and make your way to an exit.
-    ->->
+        -> navigate
     - else:
         ~ loseStamina()
         {
@@ -127,7 +124,7 @@ You pick up the armature of glass from the floor and present it to the monster. 
             Ducking under the beam you try to sprint for an exit, but the monster continues to hose the room with light. Something hits you from behind and you see a beam explode through your chest. Breathless, you fall forwards into the light. The deadly illumination is eclipsed by the darkness of oblivion.
             -> END
             - else:Keeping yourself at the monster's back you edge quietly towards an exit. But it begins to turn quicker than you can creep away. You sprint as the monster fires out {~a pink|a turquoise|a vermillion|an orange|a sepia|a violet} beam in your general direction. {~Diving to the floor you bruise yourself as the ray passes over. You scrabble to your feet and escape before it can fire again.|The ray misses you, hitting the ceiling. A chunk of stone smacks rudely into your head. You grip the bruise whilst you make your escape.|You dive over it. From your fingers to the end of your tail you are a graceful arc. The moment you land it fires again, you tempt fate with another dive and still succeed. It fires again. You dive. Again. And so on.<br><br>You exit the room acrobatically, though somewhat exhausted.}
-            ->->
+                -> navigate
         }
 }
 

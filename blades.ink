@@ -5,13 +5,11 @@
 = enter
 You enter this space and your eye is drawn to a deep gouge that runs around the entire room at waist height. Something will come out of that gap, you're sure of it.
 -> opt
-->->
 
 = opt
 ~ temp chance_crawl = 60
 ~ temp chance_catch = 70
 + [Crawl. (%{chance_crawl})]
-    Let's do this...
     <- rollChance(chance_crawl)
     {
     - isSuccess:-> crawl_success
@@ -31,7 +29,7 @@ You enter this space and your eye is drawn to a deep gouge that runs around the 
 You step out of the path of one blade and into that of the bar that carries it. You push back against the lever and hear grinding noises in the walls. The whole trap mechanism shudders to a halt.
 ~gold++
 On the floor next to a wall you notice a gold coin. Easy to miss whilst the blades are threatening you. You pick it up.
-->->
+-> navigate
 
 = catch_failure
 ~ loseStamina()
@@ -44,12 +42,12 @@ On the floor next to a wall you notice a gold coin. Easy to miss whilst the blad
         You've misjudged your position. {~You dive to the floor, bruising yourself in the process - but the blades pass over you.|You leap to one side but the blades still manage to cut you as they pass.}
         You make your way out before the mechanism activates again.
 }
-->->
+-> navigate
 
 = crawl_success
 You crawl slowly across the floor and huge cantilevered blades swing out from the gouges. They pass harmlessly over you.
 {As you make your way across the flagstones you find a message scratched into the stonework: "Waist not, want not." You continue your crawl, away from this room's sense of humour.|}
-->->
++ [Exit.]-> go_direction(1)
 
 = crawl_failure
 ~ loseStamina()
@@ -60,7 +58,7 @@ You crawl carefully across the floor, head down. Hearing nothing from above you 
     - else:
         An armature holding a giant blade smacks into your head. You lie there stunned for a few seconds before continuing your crawl out of there.
 }
-->->
++ [Exit.]-> go_direction(1)
 
 = returning
 {catch_success: -> solved}
@@ -69,7 +67,7 @@ You return to the room with the gouge running around it.
 
 = solved
 You return to the room of blades. {You stick to the room's perimeter in case a secondary mechanism activates.|The scythes on their huge levers hang motionless.}
-->->
+-> navigate
 
 
 

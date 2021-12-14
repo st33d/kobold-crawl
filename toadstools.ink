@@ -1,17 +1,14 @@
 VAR toadstool_hit = false
 
 === toadstools
-<- title("Goombas", toadstools)
+<- title("Toadstools", toadstools)
 {-> enter | -> returning}
 
 = enter
 The floor in this room has been ripped up, exposing the earth and making the air damp. Two huge and poisonous looking toadstools dominate the center of the room. They uproot themselves, standing on fibrous hooves before slowly marching towards you.-> opt
 
 = opt
-~ temp_chance = 60 + fight * 10
-{
-    - advantage: temp_chance += 10
-}
+~ temp_chance = 60 + fight * 10 + advantage * 5
 + {fight < 2}[Attack. (%{temp_chance})]-> fight
 * (advantage){fight < 2} [Look for an advantage.]
     ~ wisdom++
@@ -19,7 +16,7 @@ The floor in this room has been ripped up, exposing the earth and making the air
     -> opt
 + {toadstool_hit && fight < 2} [Run away.]
     Having scored a victory you take advantage of the situation to exit the room on your own terms.
-    ->->
+    -> navigate
 + {!toadstool_hit && fight < 2} [Return the way you came.]-> go_direction(-1)
 
 = returning
@@ -27,7 +24,7 @@ The floor in this room has been ripped up, exposing the earth and making the air
 You return to the toadstool room. <>
 {
     - fight > 1:Hunks of fungus decorate the floor.
-        ->->
+        -> navigate
     - fight == 0:The fungi beasts block your passage.
     - fight == 1:The remaining occupant marches towards you seeking retribution.
     
@@ -66,5 +63,5 @@ You plunge your spear into the dome of {fight == 2:a|the} toadstool and it relea
             - not isSuccess:Its remains are a slippery mess and you fall over {RANDOM(2, 4)} times before being able to leave.
         }
         On your way out you find {loot(3, 5)} gold coins that must have been buried in the flesh of your foes.
-        ->->
+        -> navigate
 }

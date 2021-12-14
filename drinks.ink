@@ -11,7 +11,7 @@ VAR bar_chug_rounds = 0
 In this room is a drinks bar. Behind a counter and in front of a wall of bottles is a kobold wearing a black waistcoat. You're not sure how this would go over with humans exploring this place.
 She looks up from polishing a glass and says, "care for a drink?"
 <- opt
-->->
+-> navigate
 
 = opt
 * "Why is there a bar here?"[], you ask.
@@ -23,15 +23,15 @@ She looks up from polishing a glass and says, "care for a drink?"
         "They don't pay me enough to be a trap", she replies, "not with that spear of yours. Anyway, what can I get you?"
     --
     <- opt
-    ->->
+    -> navigate
 + [Approach the bar.]
-    You walk up to the bar. <>->bar
-->->
+    You walk up to the bar. <>-> bar
+-> navigate
 
 = returning
 You return to the room with the bar. {The waitress stands behind the counter as you saw her before. "Thirsty?" she asks.|Its attendant is sloshing a blue liquid around in a glass. She sniffs it, then notices you arrive. The barmaid quickly puts the glass under the counter and stands to attention.|It seems the barmaid isn't here. Then she rises up from behind the counter. "Hello", she says.|The waitress patiently waits for you to approach.}
 <- opt
-->->
+-> navigate
 
 = bar
 ~ bar_drink = (bar_drink + 1) % 3
@@ -53,7 +53,6 @@ You return to the room with the bar. {The waitress stands behind the counter as 
         + "Yes[."]", you say.
             -> invisible
 }
-->DONE
 
 = barrel_opt
 + "Nope[."]", you say.
@@ -64,7 +63,6 @@ You return to the room with the bar. {The waitress stands behind the counter as 
     {bar_chug_rounds}
     You place a hand on top of the barrel and slosh it from side to side. {bar_chug_rounds - 2 >= stamina:There's a lot inside.|You think you can handle this.}
     -> barrel_opt
-->DONE
 
 = invisible
 -> pour ->
@@ -98,7 +96,7 @@ It is {~a little sour|slighly pungent|a bit too sweet} with a {~smoky|bitter|sal
 }
 "Thanks", you say.
 "My pleasure", she replies.
-->->
+-> navigate
 
 = one_effort
 {
@@ -106,7 +104,7 @@ It is {~a little sour|slighly pungent|a bit too sweet} with a {~smoky|bitter|sal
         ~ loseStamina()
 }
 You spit it out. {You spit afterwards as well to get the burning sensation out of your mouth.|You can't believe you fell for that again.|You're managing to get a good distance on these spits now. A smattering of burn marks now decorate the floor next to the bar.|You're used to this now but it still takes its toll.} You see the barmaid reach for another bottle but you shake your head.
-->->
+-> navigate
 
 = chug
 ~ bar_chugs = 0
@@ -124,14 +122,15 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
     - stamina <= 0:
         As you struggle to breathe between swallows, some of the ale goes down the wrong hole and you begin to choke. You collapse, your swollen belly keeping you on your back and your head unforunately still under the tap. The merciless stream of beverage spills into your nostrils as well as your mouth and you start to drown.
         "You okay down there?" asks the barmaid.
-        You glug out a cough for help but it only helps fill your lungs with ale. You black out as the marinade continues.->DONE
+        You glug out a cough for help but it only helps fill your lungs with ale. You black out as the marinade continues.
+        -> END
     - bar_chugs >= bar_chug_rounds:
         ~ gainStamina(STAMINA_TOTAL)
         ~ lucky = true
         Eventually the stream of liquid comes to a trickle and stops. You let the final few drops in and suddenly you don't feel full anymore. In fact you feel great.
         "Good?" asks the waitress.
         You nod, a bit speechless from the magic applied to you. <>
-        ->leave
+        -> leave
     - bar_chugs == 1:You let the ale fill your mouth before taking your first swallow. It tastes surprisingly good. A few gulps later you're feeling full and there's still plenty to go.
     - bar_chugs == 2:The drink continues to pour and you feel very ill. You're unsure if it's wise to continue.
     - bar_chugs == 3:On and on. You feel short of breath. You give the barrel an investigative wobble and the sloshing inside demands you quaff further.
@@ -139,7 +138,7 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
     - bar_chugs == 5:Tears well up in your eyes. You're unsure if it's just the ale leaking out any way it can.
     
 }
-+ [Keep drinking.]->chug_round
++ [Keep drinking.]-> chug_round
 + [Quit.]
     You stop, feeling somewhat quesy and short of breath. <>
         {
@@ -147,7 +146,7 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
             "Oh, they told me you'd die", she says, almost speaking your thoughts aloud.
             -else:Sheepishly she remarks, "It's not certain death if you stop drinking but I have to stick to the script."
         }
-        ->leave
+        -> leave
 
 
 = pick_red_green
@@ -186,12 +185,12 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
             -else:"Want something to wash it down with?" she asks.
             You give a wave of dissent, you're unable to talk with such a horrible taste in your mouth.
         }
-        ->->
+        -> navigate
     + "Maybe later[."]", you reply.
-        ->->
+        -> navigate
 
 = heal_all
-->pour->
+-> pour ->
 You take a sip of the drink. It tastes good. You drink the rest.
 ~ temp amount = STAMINA_TOTAL - stamina
 ~ gainStamina(STAMINA_TOTAL)
@@ -201,7 +200,7 @@ You take a sip of the drink. It tastes good. You drink the rest.
 }
 "Thanks", you say.
 "My pleasure", she replies.
-->->
+-> navigate
 
 = one_health_left
 -> pour ->
@@ -213,11 +212,11 @@ You take a sip of the drink. It tastes good. You drink the rest.
 You knock it back it one. {~Your limbs seize up and you are racked with convulsions|You vomit something red streaked with black for a full {RANDOM(5, 10)} seconds.|You suddenly start sneezing uncontrollably. You sneeze so many times your nose is bleeding.|You black out, vaguely aware of hitting the floor in a very undignified manner. You wake up in great pain.|You feel the drink crawl its way back up your throat and out of your mouth. Choking you in the process. You cough out a horrid brown slug thing that splashes on to the floor. It pulsates before slithering away at frightening speed.} You take a moment to recover.
 "Another?" she asks.
 + "No[."]", you say.-> leave
-->DONE
 
 = pour
-She pours it into a {&small glass|tall glass|wooden cup|wooden bowl|clay mug|clay jug|tiny open topped barrel}.->->
+She pours it into a {&small glass|tall glass|wooden cup|wooden bowl|clay mug|clay jug|tiny open topped barrel}.
+->->
 
 = leave
 You leave the bar and the waitress promptly {&goes about cleaning it.|starts organising the bottles by colour.|starts doodling on a scrap of paper.|starts polishing glasses.}
-->->
+-> navigate

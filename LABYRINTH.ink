@@ -60,7 +60,7 @@ VAR isReroll = false// did we reroll this room when backtracking?
 VAR isReachedCenter = false// have we been to the center?
 
 VAR gold = 0// score
-VAR stamina = 2
+VAR stamina = 1
 //VAR stamina = STAMINA_TOTAL
 
 //~inventory += potion
@@ -81,7 +81,7 @@ VAR stamina = 2
 === go_back
 ~direction = -1
 ~depth--
-{depth > 0 && lucky:
+{isReachedCenter && depth > 0 && lucky:
     <- passages.lucky_return
 }
 {
@@ -118,45 +118,44 @@ VAR stamina = 2
 ~ setRoomIndex()
 ~ isEnding = false
 { room_index:
-    - 0:-> entrance ->
-    - 1:-> canary ->
-    - 2:-> bowl_of_water ->
-    - 3:-> trip_room ->
-    - 4:-> grindstone ->
-    - 5:-> ghost_room ->
-    - 6:-> fresco ->
-    - 7:-> plinth ->
-    - 8:-> grease ->
-    - 9:-> clicker ->
-    - 10:-> drinks_bar ->
-    - 11:-> finger ->
-    - 12:-> right_left_slam ->
-    - 13:-> food_table ->
-    - 14:-> library ->
-    - 15:-> ceiling ->
-    - 16:-> invisible_wall ->
-    - 17:-> windy ->
-    - 18:-> falconsloth ->
-    - 19:-> blades ->
-    - 20:-> windmill ->
-    - 21:-> eye_thing ->
-    - 22:-> nim_troll ->
-    - 23:-> flies ->
-    - 24:-> mist ->
-    - 25:-> quaid_doubler ->
-    - 26:-> suit_of_armour ->
-    - 27:-> beligerent_huff ->
-    - 28:-> black_pool ->
-    - 29:-> custard ->
-    - 30:-> hands ->
-    - 31:-> pudding ->
-    - 32:-> toadstools ->
+    - 0:-> entrance
+    - 1:-> canary
+    - 2:-> bowl_of_water
+    - 3:-> trip_room
+    - 4:-> grindstone
+    - 5:-> ghost_room
+    - 6:-> fresco
+    - 7:-> plinth
+    - 8:-> grease
+    - 9:-> clicker
+    - 10:-> drinks_bar
+    - 11:-> finger
+    - 12:-> right_left_slam
+    - 13:-> food_table
+    - 14:-> library
+    - 15:-> ceiling
+    - 16:-> invisible_wall
+    - 17:-> windy
+    - 18:-> falconsloth
+    - 19:-> blades
+    - 20:-> windmill
+    - 21:-> eye_thing
+    - 22:-> nim_troll
+    - 23:-> flies
+    - 24:-> mist
+    - 25:-> quaid_doubler
+    - 26:-> suit_of_armour
+    - 27:-> beligerent_huff
+    - 28:-> black_pool
+    - 29:-> custard
+    - 30:-> hands
+    - 31:-> pudding
+    - 32:-> toadstools
     - else:
         ~ isEnding = true
         ~ isReachedCenter = true
-        -> center ->
+        -> center
 }
--> navigate
 
 // =======================================
 // ROOM DEBUGGING
@@ -164,45 +163,44 @@ VAR stamina = 2
 ~ setRoomIndex()
 ~ isEnding = false
 { room_index:
-    - 0:-> room1 ->
-    - 1:-> blades ->
-    - 2:-> room2 ->
-    - 3:-> room3 ->
-    - 4:-> room4 ->
-    - 5:-> room5 ->
+    - 0:-> room1
+    - 1:-> center
+    - 2:-> room2
+    - 3:-> room3
+    - 4:-> room4
+    - 5:-> room5
     - else:
         ~ isEnding = true
         ~ isReachedCenter = true
-        -> room_end ->
+        -> room_end
 }
--> navigate
 
 === room1
 <- title("Room 1", room1)
 // ~ lucky = true
-1->->
+1-> navigate
 
 === room2
 <- title("Room 2", room2)
 // ~ lucky = false
 // ~ loseStamina()
-2->->
+2-> navigate
 
 === room3
 <- title("Room 3", room3)
-3->->
+3-> navigate
 
 === room4
 <- title("Room 4", room4)
-4->->
+4-> navigate
 
 === room5
 <- title("Room 5", room5)
 // ~ lucky = true
-5->->
+5-> navigate
 
 === room_end
 <- title("End", room1)
-End of maze.->->
+End of maze.-> navigate
 // =======================================
 

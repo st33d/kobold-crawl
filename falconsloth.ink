@@ -11,8 +11,8 @@ You enter this room to find a beast hanging from bars that cross the ceiling, a 
 
 = opt
 {
-    - falconsloth_dead:->->
-    - falconsloth_speed == 0:-> speed0 ->
+    - falconsloth_dead:-> navigate
+    - falconsloth_speed == 0:-> speed0
     - falconsloth_speed == 1:-> speed1
     - falconsloth_speed == 2:-> speed2
 }
@@ -31,7 +31,7 @@ You enter this room to find a beast hanging from bars that cross the ceiling, a 
         -falconsloth_speed == 1:
             You sprint forwards, keeping one eye trained on the beast. When you see that it's moving very slowly you jog to a stop. It is probably making its way towards you but it's hard to tell.
             Unthreatened, you make your way towards an exit at a leisurely pace.
-            -> go_direction(1)
+            + + [Exit.]-> go_direction(1)
         -falconsloth_speed == 2:
             You sprint to the side of it only to find the beast hanging in front of you. You turn to dash around but it appears in front of you again, with no sign of having moved other than its position and a gust of air. You're forced to back off with your spear raised. The falconsloth holds its place whilst staring you down.
             + + [Try running around again. (%{chance_run})]
@@ -73,11 +73,18 @@ You think hard about the pictures you saw. There were two kinds. A pair of breed
 + [Walk around the falconsloth.]
     You casually walk around the falconsloth. {~It begins to crane its head to follow you. Too sluggish to keep up with your pace.|It detatches one limb, perhaps to swipe or prod at you but you're not going to wait the hour it will take to find out.|It yawns as you pass. Perhaps describing the quality of its company.}
     -> go_direction(1)
-+ [Attack the falconsloth. (%99)]
-    ~ falconsloth_dead = true
-    You walk up to the falconsloth and stab the motionless target in the heart. It hits the ground with a thump before rolling on to its side. Limbs outstretched, reaching for a ceiling it will never touch again.
-    It's not clear who in this room is the real monster.
-    ->->
++ [Attack the falconsloth. (%95)]
+    <- rollChance(95)
+    {
+        - isSuccess:
+            ~ falconsloth_dead = true
+            You walk up to the falconsloth and stab the motionless target in the heart. It hits the ground with a thump before rolling on to its side. Limbs outstretched, reaching for a ceiling it will never touch again.
+            It's not clear who in this room is the real monster.
+            -> navigate
+        - else:
+            {You approach the falconsloth with your spear raised, but stop. Are you really doing the right thing?|You still can't do it. Not even a 95% chance will let harm this gentle creature.|Face it. It's not meant to be.}
+            -> speed1
+    }
 
 = speed2
 ~ temp chance_run = 60
@@ -149,4 +156,4 @@ You return to the room with the falconsloth. <>
                 ~ falconsloth_speed = 2
         }
 }
-->->
+-> DONE

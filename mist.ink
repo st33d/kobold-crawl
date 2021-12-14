@@ -3,7 +3,7 @@
 {-> enter | -> returning}
 
 = enter
-In this room hangs a smoky green mist. It stays its position in a lazy cyclone that bids you walk through it to progress.->opt
+In this room hangs a smoky green mist. It stays its position in a lazy cyclone that bids you walk through it to progress.-> opt
 
 = opt
 ~ temp_chance = 60
@@ -14,8 +14,9 @@ In this room hangs a smoky green mist. It stays its position in a lazy cyclone t
 = returning
 {
     - clear_mist:
+        You return to the room you cleared the green mist from. {It has an unpleasant smell but appears to be safe.|It seems that no trace of the mist remains.}
         <- clear_mist_opt
-        ->->
+        -> navigate
     - else:
         You return to the room with the green mist.
         -> opt
@@ -34,7 +35,7 @@ You take a deep breath and step into the mist.
             -> END
     }
 }
-->->
+-> navigate
 
 = clear_mist
 ~ loseStamina()
@@ -42,16 +43,16 @@ You take a deep breath and step into the mist.
 You huff and puff and swipe at the air with your hands. Eventually you manage to clear the room of the noxious gas - or at least disperse it enough to remove any threat.
 In the not so misty room you notice a gold coin on the floor. You pick it up.
 <- clear_mist_opt
-->->
+-> navigate
 
 = return_clear_mist
 You return to the room you cleared the green mist from. {It has an unpleasant smell but appears to be safe.|It seems that no trace of the mist remains.}
 <- clear_mist_opt
-->->
+-> navigate
 
 = clear_mist_opt
 * [Inspect the room.]
     ~wisdom++
     On the ceiling around the edges of the room you can see a gap. Standing under it you feel a gentle breeze. This must be how the room kept the mist in place.
-    A lot of effort seems to have gone into making each room its own dedicated experience. The better to use them as building blocks. You wonder how long it will be before the mountain your kind lives in becomes a fortified cube.
-    ->->
+    A lot of effort seems to have gone into making each room its own dedicated experience. The better to use them as building blocks. The Maze Builders are very economical.
+    -> navigate
