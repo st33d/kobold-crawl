@@ -7,8 +7,8 @@ You enter this space and your eye is drawn to a deep gouge that runs around the 
 -> opt
 
 = opt
-~ temp chance_crawl = 60
-~ temp chance_catch = 70
+~ temp chance_crawl = 70
+~ temp chance_catch = 50
 + [Crawl. (%{chance_crawl})]
     <- rollChance(chance_crawl)
     {

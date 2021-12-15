@@ -8,14 +8,14 @@ It snorts in another gulp of air and inflates, growing from two feet to three fe
 -> opt
 
 = opt
-~ temp_chance = 80 - returning * 15
+~ temp_chance = 60 - returning * 10
 {
     - tickle:
-        ~temp_chance -= 10
+        ~temp_chance -= 5
 }
 {
-    -temp_chance < 20:
-        ~temp_chance = 20
+    -temp_chance < 15:
+        ~temp_chance = 15
 }
 * [Slay the beligerent huff. (%{temp_chance})]->poke
 * (tickle){not returning} [Tickle the huff.]
@@ -38,7 +38,7 @@ You level your spear at the huff, your rear hand's palm covering the butt to avo
 <- rollChance(temp_chance)
 
  {
-    - returning < 1:You stab the beast, tearing a hole in wherever it holds its breath. The escaping air blasts the huff off of the floor and around the room. <>
+    - returning < 1:You stab the beast, tearing a hole in wherever it holds its breath. The escaping air blasts the huff off of the floor and around the room.
         {
         - isSuccess:It manages half a lap before flying uncontrollably out of an exit.
         - else:

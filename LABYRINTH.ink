@@ -1,3 +1,6 @@
+# author: Aaron Steed
+# title: Kobold Crawl
+
 INCLUDE entrance.ink
 INCLUDE center.ink
 INCLUDE template.ink
@@ -38,11 +41,12 @@ INCLUDE wind.ink
 INCLUDE windmill.ink
 INCLUDE TODO.txt
 
-
 EXTERNAL setRoomIndex()
+EXTERNAL changeRooms()
+
 CONST STAMINA_TOTAL = 5
 LIST events = minotaur
-LIST items = potion, bird, golden_apple, lanyard
+LIST items = bird, golden_apple, multipass, another_apple
 
 VAR depth = 0// index in stack of rooms
 VAR depth_lowest = 0// the lowest depth we've visted
@@ -60,8 +64,8 @@ VAR isReroll = false// did we reroll this room when backtracking?
 VAR isReachedCenter = false// have we been to the center?
 
 VAR gold = 0// score
-VAR stamina = 1
-//VAR stamina = STAMINA_TOTAL
+//VAR stamina = 1
+VAR stamina = STAMINA_TOTAL
 
 //~inventory += potion
 
@@ -69,9 +73,12 @@ VAR stamina = 1
 // CORE LOOP
 -> new_room
 
-// external call
+// external calls
 === function setRoomIndex()
 ~ room_index = depth
+~ return
+
+=== function changeRooms()
 ~ return
 
 === navigate
@@ -84,9 +91,6 @@ VAR stamina = 1
 {isReachedCenter && depth > 0 && lucky:
     <- passages.lucky_return
 }
-{
-    - inventory ? potion && stamina < STAMINA_TOTAL: -> passages.potion_opt ->
-}
 // (depth {depth})
 -> new_room
 
@@ -96,9 +100,6 @@ VAR stamina = 1
 {depth > depth_lowest:
     ~depth_lowest = depth
     <- passages
-}
-{
-    - inventory ? potion && stamina < STAMINA_TOTAL: -> passages.potion_opt ->
 }
 // (depth {depth})
 -> new_room
@@ -111,8 +112,8 @@ VAR stamina = 1
 }
 
 === new_room
--> new_room_debug // DEBUG
-//-> new_room_game
+//-> new_room_debug // DEBUG
+-> new_room_game
 
 === new_room_game
 ~ setRoomIndex()
@@ -128,19 +129,19 @@ VAR stamina = 1
     - 7:-> plinth
     - 8:-> grease
     - 9:-> clicker
-    - 10:-> drinks_bar
-    - 11:-> finger
-    - 12:-> right_left_slam
-    - 13:-> food_table
-    - 14:-> library
-    - 15:-> ceiling
-    - 16:-> invisible_wall
-    - 17:-> windy
-    - 18:-> falconsloth
-    - 19:-> blades
-    - 20:-> windmill
-    - 21:-> eye_thing
-    - 22:-> nim_troll
+    - 10:-> finger
+    - 11:-> right_left_slam
+    - 12:-> food_table
+    - 13:-> library
+    - 14:-> ceiling
+    - 15:-> invisible_wall
+    - 16:-> windy
+    - 17:-> falconsloth
+    - 18:-> blades
+    - 19:-> windmill
+    - 20:-> eye_thing
+    - 21:-> nim_troll
+    - 22:-> drinks_bar
     - 23:-> flies
     - 24:-> mist
     - 25:-> quaid_doubler

@@ -58,11 +58,12 @@
 ~ return c
 
 === title(name, knot)
-<h3>{name} <>
+<hr>
+<center><h3>{name} <>
 {
     - knot > 1: ({knot}{ordinal(knot)} visit)
 }
-</h3>
+</h3></center>
 ->DONE
 
 === function ordinal(n)

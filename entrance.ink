@@ -23,13 +23,13 @@ You failed. Are you sure you sure you understand?
     -> story
 
 = story
-<h1>Kobold Crawl</h1>
-<i>by Aaron Steed</i>
+<h1>\*</h1>
 The kobolds of your tribe look like {~humanoid dragons, though three feet tall and without the wings|short scaly dog people}. You are indentured to Maze Builders of Kreik who use your kind to lay their bricks, guard their treasures, and test their traps. Your job is the last of these.
 + [So it goes.]
 -
+<hr>
 <h3>Entrance</h3>
-You stand at the entrance of a labyrinth. Your task is to get to the center, take a golden apple from the tree therein and bring it back. You are allowed to keep any gold or treasures you find along the way as payment. A knapsack hangs from your shoulder to keep them in.
+You stand at the entrance of a labyrinth. Your task is to get to the center, take a golden apple from the tree therein, and bring it back. You are allowed to keep any gold or treasures you find along the way as payment. A knapsack hangs from your shoulder to keep them in.
 Future victims are expected to be armed, so you have been given a spear to add realism to your death.
 -> navigate
 
@@ -40,7 +40,7 @@ You return to the entrance of the labyrinth.
     - inventory ? bird: {A small yellow bird flies out of the maze. You watch it disappear into the caverns, not knowing if it will return.|}
 }
 {
-    - inventory ? golden_apple: You've won.
+    - inventory ? golden_apple:-> win
     - else:<- sentry
 }
 -> navigate
@@ -59,7 +59,7 @@ You return to the entrance of the labyrinth.
     -> navigate
 * (advice)"Any advice?"[] you ask.
     ~ wisdom++
-    "Hrmm..." The guard thinks this over, as if unsure it's appropriate. But then they shrug, you are a fellow kobold after all. "Well, you'll end up in trouble if you investigate everything - but you'll find shortcuts between rooms if you do. The labyrinth rewards the wise."
+    "Hrmm..." The guard thinks this over, as if unsure it's appropriate. But then they shrug, you are a fellow kobold after all. "Well, you'll end up in trouble if you investigate everything - but you'll find shortcuts between rooms if you do. It will get you to the center quicker."
     The guard taps its snout as it says the last bit.
     <- sentry_opt
     -> navigate
@@ -72,3 +72,24 @@ You return to the entrance of the labyrinth.
     ~ lucky = true
     <- sentry_opt
     -> navigate
+
+= win
+You've won.
+
+You left the labyrinth with:
+{stamina} stamina point{stamina != 1:s}.
+{gold} gold coin{gold != 1:s}.
+{
+    - inventory ? another_apple:2 golden apples.
+    - else: A golden apple.
+}
+{
+    - inventory ? multipass:An all-labyrinths VIP pass.
+}
+{
+    - inventory ? canary:A canary.
+}
+And was enlightened {wisdom} time{wisdom != 1:s}.
+
+Thank you for playing.
+-> END
