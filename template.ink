@@ -33,7 +33,7 @@ First visit
         {
             - stamina > 0:yay
             - else:nay
-                -> END
+                -> THE_END
         }
     }
 ->->
@@ -46,7 +46,8 @@ Hooray
 ~ loseStamina()
 {
     - stamina <= 0:
-        Dead.->END
+        Dead.
+        -> THE_END
     - else:
         Ouch.
 }

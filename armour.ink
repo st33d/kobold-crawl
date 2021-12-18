@@ -33,24 +33,28 @@ You return to the room with the black suit of armour. <>
     - isSuccess:-> attack_success
     - else: -> attack_failure
     }
-+ [Return the way you came.]-> go_direction(-1)
++ [{backtrack()}]-> go_direction(-1)
++ {inventory ? multipass}[Brandish your pendant.]
+    You hold up the tablet the Maze Builder gave you before the suit of armour. The suit stops as if frozen in time. You keep it raised whilst you walk past and out of the room. 
+    -> navigate
 
 = flee_failure
 ~ loseStamina()
 {
     - stamina <= 0:
-    With a tackle it knocks you to the ground. You're too tired to fight as it climbs on top of you and brings steel {attack_success < 1:fists|boots} to bear upon your already broken body.->END
+    With a tackle it knocks you to the ground. You're too tired to fight as it climbs on top of you and brings steel {attack_success < 1:fists|boots} to bear upon your already broken body.
+    -> THE_END
     - else:
         {
             - attack_success == 0:It manges to cuff you with one of its metal gauntlets as you pass.
             - attack_success == 1:It kicks your tail with a steely boot you as you pass.
         }
 }
-+ [Exit.]-> go_direction(1)
++ [Exit. {dirName()}]-> go_direction(1)
 
 = flee_success
 It tries to block your path but you fake a {&left|right} and dodge it easily.
-+ [Exit.]-> go_direction(1)
++ [Exit. {dirName()}]-> go_direction(1)
 
 = attack_success
 {
@@ -72,7 +76,7 @@ It tries to block your path but you fake a {&left|right} and dodge it easily.
             - attack_success == 1:
             With surprising flexibility it performs a roundhouse kick to your head. Theres a disturbing period of darkness before you wake up on the floor. Only to see a metal boot stamp on your face.
         }
-        -> END
+        -> THE_END
     - else:
         {
             - attack_success == 0:
@@ -80,15 +84,18 @@ It tries to block your path but you fake a {&left|right} and dodge it easily.
             - attack_success == 1:
             With deft feet {it manages to kick you in the shins {RANDOM(3,5)} times|it kicks you in the guts, making you stumble}.
         }
-        {stamina == STAMINA_TOTAL / 2: You stagger from your injuries. You're not sure you can take much more of this.}
+        {stamina == STAMINA_TOTAL / 2: {You stagger from your injuries. You're not sure you can take much more of this.|}}
         -> opt
     
 }
 
 = win
  * [Take the armour]
+    ~ inventory += cursed_ring
+    ~ lucky = false
     You pick up the helmet, a small column of vapour trailing from it. You raise the helmet to try it on and hear a quiet, "Yes!"
         * * "No[."]", you reply before dropping the helmet. Falling for such an obvious curse is beneath you.
+            But upon the armour's gauntlet you can see a ring. You prize it off. There's an inscription on the inside but you can't read the language. You put it in your bag.
 * [Scatter the armour]
     You kick the pieces of armour away from one another. They let out mournful plumes of vapour. The helmet you leave for last - an inscription on the back of it reads, "eternally guarded, contents discarded".
 -

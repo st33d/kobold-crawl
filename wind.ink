@@ -19,19 +19,19 @@ There's also a gold coin on the floor nearby - it would be risky to try and get 
 {not penny:-> dismantle|-> navigate}
 
 = dismantle
-~ temp_chance = 70
-+ [Crawl through. (%{temp_chance})]-> crawl
+~ chance_1 = 70
++ [Crawl through. (%{chance_1})]-> crawl
 * (look) [Look for a way to dismantle the trap.]
     ~ wisdom++
     The mesh reaches the edge of the room, clearly to stop you from working your way around the perimeter. Each wire of mesh at the edge is tied to a small metal pin, haphazardly hammered into the stone work. You could probably pry it free with your spear.
     -> dismantle
-+ {lip == 0 && look}[Dismantle the trap. (%{temp_chance})]-> lip
++ {lip == 0 && look}[Dismantle the trap. (%{chance_1})]-> lip
 + {lip && gold > 0}[Throw a coin into the gears. (-1 gold)]-> penny
-+ [Return the way you came.]-> go_direction(-1)
++ [{backtrack()}]-> go_direction(-1)
 
 = lip
 You pick a spot where the mesh floor meets the wall and use your spear's head to try and create an opening.
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:Fortunately you've attacked an area that was attached poorly and it comes free with no effort.
 - else:
@@ -52,7 +52,7 @@ You throw a coin into the gears of the drive chain powering the windmill. There 
 
 = crawl
 Lying low, gripping the mesh floor, you crawl forwards into the tornado before you.
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:{&You manage to edge your way around the perimeter of the wind tunnel. Your feet rise from the floor a few times but you make it out okay.|You hear a loud clunk and the windmill slows to a halt. You must have triggered something to turn it off. You look around quickly to see what it was. A second clunk. The windmill below starts to turn again - you take advantage of this small mercy and flee the room.}
 - else:
@@ -72,7 +72,7 @@ You make a desperate swim to grab on to the walls but you're in the dead center 
 You fall.
 The ground rushes to meet you, the mesh in front of it a further insult. You attempt to angle yourself such that the blow will kill you outright - choosing to be diced back to front.
 It takes a week to clean your corpse out of this room.
--> END
+-> THE_END
 
 = returning
 You return to the room with the <>

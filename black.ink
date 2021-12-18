@@ -17,7 +17,7 @@ You stumble to a stop at the edge of this room. Where the floor should be is jus
 + {test} [Walk through the pool of darkness. (%{chance_walk})]
     <- rollChance(chance_walk)
     -> walkThrough
-+ [Return the way you came.]-> go_direction(-1)
++ [{backtrack()}]-> go_direction(-1)
 
 = returning
 You return to the room with the black floor. Its tenebrous platform continues to hide what lurks below.
@@ -26,13 +26,13 @@ You return to the room with the black floor. Its tenebrous platform continues to
 = walkEdge
 {
     - isSuccess:Eventually you manage to reach an exit.
-        + [Exit.]-> go_direction(1)
+        + [Exit. {dirName()}]-> go_direction(1)
     - else:
         ~ loseStamina()
         {
             - stamina <= 0:The stone beneath your feet crumbles. You pitch forwards tumbling head first into the black. There is no obstacle to your descent.-> fall
             - else:You {~stumble|trip} and fall into the pool. A stony floor rudely stops you from falling further. {not test && not lower: You pull yourself up and find yourself only knee deep in darkness. Somewhat bruised and annoyed you |You get up, brush yourself off, and }make your way carefully to an exit.
-                + [Exit.]-> go_direction(1)
+                + [Exit. {dirName()}]-> go_direction(1)
         }
 }
 
@@ -57,7 +57,7 @@ You lower one foot into the blackness until it reaches a cold stony floor. Then 
 -> lower ->
 {
     - isSuccess:{-> walk_first ->|You're surprised to make it across unscathed and untested. Perhaps you chose just the right path.}
-        + [Exit.]-> go_direction(1)
+        + [Exit. {dirName()}]-> go_direction(1)
     - else:
         ~ loseStamina()
     {
@@ -66,12 +66,12 @@ You lower one foot into the blackness until it reaches a cold stony floor. Then 
         You take a step to the left to circle around the hazard. You're pretty sure there was floor to your left a second ago as you stumble sideways into chasm. You pass through the plane of darkness into a cold space. -> fall
         -else:
             {&Confident your path is clear you smash your left big toe into what feels like a raised stone. One whose purpose is purely for the stubbing of toes. It really hurts. You lean on your spear whilst cursing for a minute before making your way to an exit at a much slower pace.|You boldly place a foot ahead and skewer it on something sharp. Crying out in pain you lift your foot to find a rusty nail embedded in it. You pull it out. Shuffling onwards you make your way carefully out of the room.|You advance across the pool only for one of your feet to step into a pothole. Your shin smacks into the side of it and your toes are twisted under your weight as they hit the bottom. You hiss in lieu of cursing, not wanting to provide amusement for whatever beasts await you in adjacent rooms. Using your spear to lean on you retrieve your foot. Then, slowly, carefully, you make your exit.}
-            + [Exit.]-> go_direction(1)
+            + [Exit. {dirName()}]-> go_direction(1)
     } 
 }
 
 = fall
 After a long fall, something flat and made of stone slams into your side and your head.
 The oppressive darkness only makes it easier for life to slip away.
--> END
+-> THE_END
 

@@ -36,7 +36,6 @@ You sit down and take a well deserved rest. Even going so far as to eat the chee
         ~ gainStamina(STAMINA_TOTAL)
 }
 ~ inventory += multipass
-~ lucky = true
 After some minutes pass you're startled by a visitor. A Maze Builder of Kreik emerges from a nearby wall, moving through the stone as if wading through a shallow pool.
 Like the others you've seen, this one has two long arms and two shorter arms about its ribs. It stands on two longs legs with two shorter legs emerging from its hips, the latter gently kick the air as it walks. It has red scaly skin and looks down on your with two pairs of eyes.
 You feel a bit embarrassed at having been caught slacking off.
@@ -57,6 +56,6 @@ The Maze Builder picks up a handful of pebbles from the floor and they melt in i
 * ->
 -
 The creature turns from you then and gestures back into the labyrinth, your task is only half done. Then it walks back into the walls, its lesser arms and legs appearing to pull aside some inner fabric of the rock to allow it to pass.
-You're left to alone to plan your route back.
+You put on the pendant the Maze Builder gave you. Hopefully it will have a use on your way back.
 <- opt
 -> navigate

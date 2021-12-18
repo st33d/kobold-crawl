@@ -8,34 +8,41 @@ It snorts in another gulp of air and inflates, growing from two feet to three fe
 -> opt
 
 = opt
-~ temp_chance = 60 - returning * 10
+~ chance_1 = 50 - returning * 10
 {
     - tickle:
-        ~temp_chance -= 5
+        ~chance_1 -= 5
 }
 {
-    -temp_chance < 15:
-        ~temp_chance = 15
+    - brandish:
+        ~chance_1 += 15
 }
-* [Slay the beligerent huff. (%{temp_chance})]->poke
+{
+    -chance_1 < 15:
+        ~chance_1 = 15
+}
+* [Slay the beligerent huff. (%{chance_1})]->poke
 * (tickle){not returning} [Tickle the huff.]
     ~ wisdom++
     You look the huff up and down looking for something to tickle. You try wiggling its nose. You try niggling its paws. You run hands over its round body, poking and prodding. For the moment the creature is paused.
     Once you're done you walk around to face the huff once more. It snorts and grows another foot in diameter. The huff is not ticklish.
     -> opt
-+ {not returning} [Leave before it gets bigger.]-> go_direction(1)
++ {not returning} [Leave before it gets bigger. {dirName()}]-> go_direction(1)
 + {returning && returning < 4 && stamina > 1} [Squeeze past the creature. (-1 stamina)]-> squeeze
-+ {returning} [Return the way you came.]-> go_direction(-1)
++ {returning} [{backtrack()}]-> go_direction(-1)
+* (brandish){inventory ? multipass}[Brandish your pendant.]
+    You show the pendant the Maze Builder gave you to the huff. It expels some air in shock, then quickly recovers and tries to inhale again. Whilst you've gained an advantage the creature stays true to its name.
+    -> opt
 
 = squeeze
 ~ loseStamina()
 {&You push against the huff's inflated body, using the wall as leverage to make a dent large enough to begin passage. Then by slow turns you roll yourself between wall and rodent to get past.|You take a short run up and then shoulder barge the huff near a corner of the room. The rubbery balloon resists, pushing back and making your feet slip across the floor, but you've already made headway. Grabbing scant tufts of fur on the huff to keep your advantage you pull yourself around it towards another exit.}
 
-+ [Exit.]-> go_direction(1)
++ [Exit. {dirName()}]-> go_direction(1)
 
 = poke
 You level your spear at the huff, your rear hand's palm covering the butt to avoid slippage. {returning < 4:You look the beast in the eyes, giving your spear a threatening twist to test its resolve. The beligerent huff stays true and snorts in another breath to add to its rage.|You rap its nose with the flat of your spear's blade to give it one last chance. The beligerent huff opens one sleepy eye. Looks at you. Looks at your spear. Snorts. And then goes back to its bloated torpor.}
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 
  {
     - returning < 1:You stab the beast, tearing a hole in wherever it holds its breath. The escaping air blasts the huff off of the floor and around the room.
@@ -49,7 +56,7 @@ You level your spear at the huff, your rear hand's palm covering the butt to avo
                 - else:It smacks into the ceiling, appearing to dislodge one of the tiles in the roof. You step to one side but as you do you forget about the errant huff which thumps into your back, sending you staggering back under the roof tile about to fall.
                 You hear a quick scrape from above and have enough time to look stupefied at the threat from above. You don't even manage to raiae your arms in time to feebly fend off the chunk of stone that bears down on you.
                 Fortunately you're knocked unconscious as it crushes you.
-                -> END
+                -> THE_END
             }
         }
     - else: -> bang
@@ -73,7 +80,7 @@ You level your spear at the huff, your rear hand's palm covering the butt to avo
         Then the huff explodes.
         The blast lifts you off of your feet, tumbling through the air. Something hits you hard enough to knock you out. Probably a wall or the floor. Probably on your head.
         The blow is fatal.
-        -> END
+        -> THE_END
     }
 }
 -> navigate

@@ -1,5 +1,4 @@
 # author: Aaron Steed
-# title: Kobold Crawl
 
 INCLUDE entrance.ink
 INCLUDE center.ink
@@ -45,23 +44,24 @@ EXTERNAL setRoomIndex()
 EXTERNAL changeRooms()
 
 CONST STAMINA_TOTAL = 5
-LIST events = minotaur
-LIST items = bird, golden_apple, multipass, another_apple
+LIST items = bird, golden_apple, multipass, another_apple, quaid_coin, falconsloth_red, falconsloth_blue, nim_stone, glass_eye, pinch_of_salt, cursed_ring
 
 VAR depth = 0// index in stack of rooms
 VAR depth_lowest = 0// the lowest depth we've visted
 VAR room_index = 0// the index of the room chosen
 VAR direction = 1// 1: going deeper -1: going back
 VAR inventory = ()// items/conditions you carry
-VAR witness = ()// events
-VAR temp_chance = 0// temporary VAR for tracking chance between knots
 VAR wisdom = 0// used to skip depths
 VAR wisdom_prev = 0// used to detect wisdom update in passages
 VAR lucky = false// gives advantage on next dice roll
 VAR isSuccess = false// did we succeed at <-rollChance()
 VAR isEnding = false// is this the end of the maze?
-VAR isReroll = false// did we reroll this room when backtracking?
 VAR isReachedCenter = false// have we been to the center?
+
+// temporaty VARs for tracking chance
+VAR chance_1 = 0
+VAR chance_2 = 0
+VAR chance_3 = 0
 
 VAR gold = 0// score
 //VAR stamina = 1
@@ -147,11 +147,12 @@ VAR stamina = STAMINA_TOTAL
     - 25:-> quaid_doubler
     - 26:-> suit_of_armour
     - 27:-> beligerent_huff
-    - 28:-> black_pool
-    - 29:-> custard
-    - 30:-> hands
-    - 31:-> pudding
-    - 32:-> toadstools
+    - 28:-> limerick
+    - 29:-> black_pool
+    - 30:-> custard
+    - 31:-> hands
+    - 32:-> pudding
+    - 33:-> toadstools
     - else:
         ~ isEnding = true
         ~ isReachedCenter = true

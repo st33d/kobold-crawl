@@ -60,7 +60,6 @@ You return to the room with the bar. {The waitress stands behind the counter as 
 + "Yes[."]", you say.
     -> chug
 * [Examine the barrel.]
-    {bar_chug_rounds}
     You place a hand on top of the barrel and slosh it from side to side. {bar_chug_rounds - 2 >= stamina:There's a lot inside.|You think you can handle this.}
     -> barrel_opt
 
@@ -108,7 +107,6 @@ You spit it out. {You spit afterwards as well to get the burning sensation out o
 
 = chug
 ~ bar_chugs = 0
-{bar_chug_rounds}
 You pull the heavy barrel over to your edge of the bar and put your mouth below the tap on its bottom edge before turning it open.
 -> chug_round
 
@@ -123,7 +121,7 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
         As you struggle to breathe between swallows, some of the ale goes down the wrong hole and you begin to choke. You collapse, your swollen belly keeping you on your back and your head unforunately still under the tap. The merciless stream of beverage spills into your nostrils as well as your mouth and you start to drown.
         "You okay down there?" asks the barmaid.
         You glug out a cough for help but it only helps fill your lungs with ale. You black out as the marinade continues.
-        -> END
+        -> THE_END
     - bar_chugs >= bar_chug_rounds:
         ~ gainStamina(STAMINA_TOTAL)
         ~ lucky = true

@@ -1,5 +1,42 @@
 === TODO_LIST
 
+Quaid - if you examine the doubters, then choose right, it tells me I run to the left.
+
+Custard - "Run Past" says ($80) instead of (%80).
+
+There was at least one room that told me I had an 80% chance, but the roll said 71/75 (instead of 71/80).
+
+There was at least one room that says an option has a % chance, but then doesn't show me a roll result.
+
+Add some treasures to the rooms.
+
+Make restarting show only unvisited rooms from last run
+	separate index getting from room picking
+	change visited to count visits
+
+
+
+
+
+tweet:
+KOBOLD CRAWL
+
+A hot new multiple-choice text-adventure roguelike in which you can:
+
+Skewer an Ectopic Pudding! 
+Tickle a Belligerent Huff!
+Play Nim with a troll!
+Find out if Falconsloths are fast or slow!
+
+Free and only half an hour long.
+
+https://st33d.itch.io/kobold-crawl
+
+Merry Holidays!
+
+
+
+
 web page:
 	top status bar
 	hook up reset button to clear history as well

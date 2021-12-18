@@ -11,13 +11,13 @@ This room looks suspiciously empty. You take a step forwards and your snout bump
 -> opt
 
 = opt
-~ temp_chance = 60
-+ [Try to break through the wall (%{temp_chance})] -> break_wall
-+ [Return the way you came.]-> go_direction(-1)
+~ chance_1 = 60
++ [Try to break through the wall (%{chance_1})] -> break_wall
++ [{backtrack()}]-> go_direction(-1)
 
 = break_wall
 You charge into the transparency before you.
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:-> empty
 - else:
@@ -28,7 +28,7 @@ You charge into the transparency before you.
             <- do_you_even
             -> navigate
         - else:and hear a shattering sound. As you tumble to the floor, you feel sharp things pierce you. A large invisible blade of the wall skewers you through the middle. Your life drains out, down and over shards that become more visible the closer you are to death.
-            -> END
+            -> THE_END
     }
 }
 

@@ -6,10 +6,13 @@
 In this room hangs a smoky green mist. It stays its position in a lazy cyclone that bids you walk through it to progress.-> opt
 
 = opt
-~ temp_chance = 60
+~ chance_1 = 60
 + {stamina > 1} [Try to blow or fan the mist away. (-1 stamina)]-> clear_mist
-+ [Hold your breath and walk through mist. (%{temp_chance})]-> hold_breath
-+ [Return the way you came.]-> go_direction(-1)
++ [Hold your breath and walk through mist. (%{chance_1})]-> hold_breath
++ [{backtrack()}]-> go_direction(-1)
++ {inventory ? multipass}[Brandish your pendant.]
+    You hold up the pendant the Maze Builder gave you. The mist seems to flow away from  it. {You're able to walk through the room in your own personal bubble of clean air.|}
+    -> navigate
 
 = returning
 {
@@ -24,7 +27,7 @@ In this room hangs a smoky green mist. It stays its position in a lazy cyclone t
 
 = hold_breath
 You take a deep breath and step into the mist.
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:You're lucky enough to walk into a gap in the swirling cloud. You keep pace with it and exit the room without suffering harm.
 - else:
@@ -32,7 +35,7 @@ You take a deep breath and step into the mist.
     {
         - stamina > 0:Your eyes water and you feel an unpleasant tingle across your skin. You had best exit this room swiftly.
         - else:Unfortunately there is a tickling sensation in your snout before you're forced to let out a great sneeze. You take a breath afterwards before realising your mistake and begin to choke. Your lungs and throat burn as you collapse to the floor. Foaming drool escapes your lips as the poisonous mist saps the rest of your life from you.
-            -> END
+            -> THE_END
     }
 }
 -> navigate

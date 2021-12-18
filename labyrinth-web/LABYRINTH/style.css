@@ -54,7 +54,7 @@ h2 {
     position: fixed;
     display: block;
     width: 100%;
-    background: rgb(32, 32, 32);
+    background: #ece8dd;
     transition: color 0.6s, background 0.6s;
     margin: 0;
     padding-top: 6px;
@@ -192,7 +192,7 @@ img {
     right: 14px;
     top: 4px;
     user-select: none;
-    background: rgb(221, 187, 143);
+    background: #ece8dd;
     transition: color 0.6s, background 0.6s;
 }
 
@@ -220,24 +220,29 @@ img {
 */
 
 body.dark {
-    background: black;
-    color: white;
+    background: rgb(24, 20, 18);
+    color: rgb(230, 230, 230);
 }
 
 .dark h2 {
-    color: #666;
+    color: rgb(199, 199, 199);
 }
 
 .dark .container {
-    background: black;
+    background: rgb(24, 20, 18);
 }
 
 .dark .written-in-ink {
-    background: black;
+    background: rgb(24, 20, 18);
 }
 
 .dark a {
-    color: #ca781a;
+    color: rgb(235, 140, 111);
+    transition: color 0.6s;
+}
+
+.dark p {
+    color: rgb(230, 230, 230);
     transition: color 0.6s;
 }
 
@@ -250,13 +255,13 @@ body.dark {
 }
 
 .dark #controls [disabled] {
-    color: #444;
+    color: rgb(209, 208, 208);
 }
 
 .dark .end {
-    color: white;
+    color: rgb(235, 235, 235);
 }
 
 .dark #controls {
-    background: black;
+    background: rgb(15, 14, 14);
 }

@@ -19,16 +19,16 @@ You enter this room and thick rectangular wall shoots down from the ceiling and 
 {not disarm:-> trap | -> navigate}
 
 = trap
-~ temp_chance = 50
-+ [Run through the right side. (%{temp_chance})]
+~ chance_1 = 50
++ [Run through the right side. (%{chance_1})]
     ~ slam_run = right
     -> running
-+ [Run through the left side. (%{temp_chance})]
++ [Run through the left side. (%{chance_1})]
     ~ slam_run = left
     -> running
 * [Wait.]-> watch
 + {watch && gold > 0} [Disarm the trap. (-1 gold)]-> disarm
-+ [Return the way you came.]-> go_direction(-1)
++ [{backtrack()}]-> go_direction(-1)
 
 = running
 You sprint forth to the {slam_run}. <>
@@ -37,10 +37,10 @@ You sprint forth to the {slam_run}. <>
     -else:-> dodge ->
 }
 ~ slamChange()
-+ [Exit.]-> go_direction(1) 
++ [Exit. {dirName()}]-> go_direction(1) 
 
 = hit
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:You hear the grinding of stone on stone above you and quickly jump over to the {slamOther(slam_run)}, narrowly avoiding being pulped. {As the wall rises you spy {loot(2, 3)} gold coins in the trench the wall has made with its pounding. You pick them up and make a run for an exit.|You run towards an exit before the {slamOther(slam_run)} wall can begin its descent.}
 - else:
@@ -48,7 +48,7 @@ You sprint forth to the {slam_run}. <>
     {
         - stamina > 0:You realise your folly as the {slam_run} side wall descends. {~You jump to the {slamOther(slam_run)} side but fall over and have to scramble to your feet to make it to an exit.|Fortunately you weren't running fast enough to end up under it. Instead your snout smacks into a half lowered wall and you stagger backwards a few paces. That hurt. As the wall rises you run out of the room before you injure yourself further.|Determined to make things worse you trip over the trench the wall's hatred of the floor has made. You tumble into a roll, bruising yourself but the roll throws you beyond the {slam_run} side wall's ire. You get up and get out of there.}
         - else:Dust and chips of stone hit your neck before you feel a blow to the back of your head. Then there is pain and darkness. Any fleeting moments of consciousness you have are smashed away when the wall descends to crush you for the second time.
-            -> END
+            -> THE_END
     }
 }
 ->->

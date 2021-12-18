@@ -45,7 +45,7 @@ You pause at the entrance to the room that clicks.
                 {
                     - stamina > 0:You jump, wriggle somewhat in the air, and then land on your head. Somewhere above you darts whistle past.
                     - else:You body arcs through the air, almost making a perfect "O". Three whistling darts fly underneath you and a forth slams into your tail. You feel very heavy. That dart must have been poisoned, you think. Perhaps you can sleep it off. You lie down as the numbness takes over. You don't wake up.
-                    -> END
+                    -> THE_END
                 }
         }
 + [It's not worth the risk.]-> go_direction(-1)

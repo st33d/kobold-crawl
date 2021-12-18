@@ -9,7 +9,7 @@ You check out the floor. It seems normal, you're not sure what the sculpture is 
 -> navigate
 
 = opt
-~ temp_chance = 90 - remove_coin * 15
+~ chance_1 = 85 - remove_coin * 15
 * [Inspect the sculpture.]-> inspect
 * {inspect && remove_coin < 3} [Look for a mechanism.]
     ~ wisdom++
@@ -19,9 +19,9 @@ You check out the floor. It seems normal, you're not sure what the sculpture is 
     With a good strike of your spear you might be able to ruin the inscription.
     <- opt
     -> navigate
-+ {inspect && remove_coin < 3} [Remove a gold coin from the stack. (%{temp_chance})]
++ {inspect && remove_coin < 3} [Remove a gold coin from the stack. (%{chance_1})]
     You attempt to remove a coin from the stack.
-    <- rollChance(temp_chance)
+    <- rollChance(chance_1)
     {
         - isSuccess:-> remove_coin
         - else:{You struggle to lift the finger but to no avail. After a few more attempts you resolve to try again later.|You try to whack the coins free with your spear but after several blows you worry you might damage the weapon and leave yourself defenceless. Perhaps you should try again after a break.|Another attempt to free the coins ends in failure.}

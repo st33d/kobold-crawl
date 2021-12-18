@@ -92,9 +92,11 @@
 <i>{tensOf(roll)}/{tensOf(perc)}: {isSuccess:Success|Failure}</i>
 -> DONE
 
-=== exitOption
-+ [Exit.] -> go_direction(1)
-
+=== THE_END
+<center><b>THE END</b></center>
++ [Reset Game]
+    #RESTART
+    -> END
 
 === function pickOne(a, b)
 ~temp r = RANDOM(0, 1)
@@ -104,4 +106,23 @@
     -else:
     ~return b
 }
+
+=== function dirName()
+{
+    - direction > 0: 
+        ~ return "(Go deeper.)"
+    - else:
+        ~ return "(Go back.)"
+}
+
+=== function dirNameReverse()
+{
+    - direction > 0: 
+        ~ return "(Go back.)"
+    - else:
+        ~ return "(Go deeper.)"
+}
+
+=== function backtrack()
+~ return "Retreat. " + dirNameReverse()
 

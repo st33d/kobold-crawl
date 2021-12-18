@@ -18,13 +18,20 @@ You look up from it to see a big ball of floating reptilian flesh. The front sid
     <- rollChance(chance_hello)
     -> talk
 * {talk && not spectacles} [Give the monster its spectacles.]
-    ->spectacles
-+ {not gone} [Return the way you came.]-> go_direction(-1)
+    -> spectacles
++ {not gone} [{backtrack()}]-> go_direction(-1)
 * {gone} [Lift the marked slab.] -> lift_slab
+* {not spectacles && inventory ? multipass} [Brandish your pendant.]
+    You hold aloft your pendant for the creature to see. Despite eleven items of evidence to the contrary, it doesn't seem to see it.
+    -> opt
 
 = lift_slab
-~gold += 3
-    Wedging your spear's head between the flagstones, you lift up the slab that the monster marked for you. Underneath you find 3 gold coins. You collect them and let the slab fall back into place.
+~ gold += 3
+~ lucky = true
+~ inventory += glass_eye
+    Wedging your spear's head between the flagstones, you lift up the slab that the monster marked for you. Underneath you find 3 gold coins and a glass eyeball.
+    The eye turns to look at you in your hand, its iris flashes gold then turns a deep red. You've a strong feeling that it's some sort of lucky charm, despite looking a bit creepy. 
+    You bag your prizes and let the slab fall back into place.
 -> navigate
 
 = returning
@@ -109,7 +116,7 @@ You pick up the armature of glass from the floor and present it to the monster. 
 = gone
 "Oh!" it says, "certainly. Indeed I too shall be going as well. I will return to obliterate the fools who put me here, but rest assured you've earned your life."
     A ray from one of its eyes takes you by surprise. It carves an X on a flagstone near you.
-    "There's gold under that one", it says. As you look at the slab of stone you are buffeted by a whoosh of air. You look back to where the monster was but it has vanished. Only an unpleasant odor remains, it smells like burning claws.
+    "A gift", it says. As you look at the slab of stone you are buffeted by a whoosh of air. You look back to where the monster was but it has vanished. Only an unpleasant odor remains, it smells like burning claws.
     <- opt
 -> navigate
 
@@ -122,7 +129,7 @@ You pick up the armature of glass from the floor and present it to the monster. 
         {
             - stamina <= 0:You carefully tread around the monster, hoping to stay in eleven blindspots at once. You're almost free of the room when you step on a loose flagstone. It makes a hollow clack against its neighbours. You look up just in time to see the monster spin around, a white beam firing from one of its eyestalks.
             Ducking under the beam you try to sprint for an exit, but the monster continues to hose the room with light. Something hits you from behind and you see a beam explode through your chest. Breathless, you fall forwards into the light. The deadly illumination is eclipsed by the darkness of oblivion.
-            -> END
+            -> THE_END
             - else:Keeping yourself at the monster's back you edge quietly towards an exit. But it begins to turn quicker than you can creep away. You sprint as the monster fires out {~a pink|a turquoise|a vermillion|an orange|a sepia|a violet} beam in your general direction. {~Diving to the floor you bruise yourself as the ray passes over. You scrabble to your feet and escape before it can fire again.|The ray misses you, hitting the ceiling. A chunk of stone smacks rudely into your head. You grip the bruise whilst you make your escape.|You dive over it. From your fingers to the end of your tail you are a graceful arc. The moment you land it fires again, you tempt fate with another dive and still succeed. It fires again. You dive. Again. And so on.<br><br>You exit the room acrobatically, though somewhat exhausted.}
                 -> navigate
         }
@@ -136,7 +143,7 @@ You pick up the armature of glass from the floor and present it to the monster. 
         ~ loseStamina()
           {
             - stamina <= 0:You dodge the incoming beam but the monster continues blasting, sweeping across the room. {You find your escape covered in sheets of jagged ice - surely from the creature's magic. You try to dive over to safety but as you do the beam sweeps back and hits you. Theres a biting pain all over you that feels like thousands of needles, as well as a horrid numbness that locks your limbs in place. You hit the floor with a cracking sound, your body splintering into icy chunks. Fortunately, when your head follows and explodes into frozen fragments you are too cold to feel it.|Your escape is cut off by a trench of molten rock - created by the creature's beam. The monster continues its sweep and you try to leap over the trench to safety. After a great leap you land on the other side, rising to continue your flight. But a column of red light burst through your chest, leaving a charred smoking hole where most of your vital organs should be. You try to cry out in pain but you lack the faculty, instead the only sound is your expiring body hitting the floor.}
-                ->END
+                -> THE_END
             - else:{It misses you completely, spraying the ceiling with a pattern of icicles. Then a few of them drop off and you make a panicked dash away from where you stand as daggers of ice fall from above. One of them cuts you as it passes.|You duck down as a ray of heat sweeps above you. Unfortunately you forget about your tail and the end of it is singed by the beam. You lick finger and thumb and apply them to the end of your tail - there's an unpleasant hiss. It stings quite a bit.}
           }
 }

@@ -24,6 +24,10 @@ At the center of this room hangs a wire cage with several wooden perches. Upon t
     The bird twitches a look at you, questioning its freedom, before fluttering out of the room. You lose sight of it as it goes round a corner. It does not return.
         <- opt
         -> navigate
+* {not open && inventory ? multipass} [Brandish your pendant.]
+    You hold up the pendant the Maze Builder gave you for the bird to see. But it appears not to care for trinkets.
+    <- opt
+    -> navigate
 
 = eat
 ~ gainStamina(1)

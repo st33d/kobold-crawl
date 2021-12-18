@@ -1,4 +1,4 @@
-
+// RNG toolkit
 var rng = {
 	shuffle: function (v){
 		for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
@@ -26,9 +26,6 @@ var rng = {
 	}
 };
 
-
-
-
 (function(storyContent) {
 
     // Create ink story from the content using inkjs
@@ -36,8 +33,10 @@ var rng = {
 
 		// Depth crawl indexer
 		var history = [0];
-		var visited = {};
-
+		var visited = {"0":1};
+		var played = 1;
+		var totalRooms = 33;
+		
 		function setRoomIndex(){
 			var depth = story.variablesState["depth"];
 			var wisdom = story.variablesState["wisdom"];
@@ -47,22 +46,53 @@ var rng = {
 				index = history[depth];
 			} else {
 				// roll new room
-				index = depth + wisdom + Math.floor(Math.random() * 20);
-				while(visited[index+""]) index++;
+				// index = depth + wisdom + rng.value(0, 20);
+				// while(visited[index+""]) index++;
+				index = getNewRoom(depth + wisdom);
 				history.push(index);
-				visited[index+""] = true;
+				// visited[index+""] = true;
 			}
 			story.variablesState["room_index"] = index;
 			console.log("setRoomIndex:", depth, wisdom, index);
 		}
 		story.BindExternalFunction("setRoomIndex", setRoomIndex);
+		
+		// pick an unvisited index (1-33), 0 is a failure
+		// function rollNewRoom(){
+		// 	var index = Math.floor(Math.random() * 33) + 1;
+		// 	var breaker = 0;// no infinite loops
+		// 	while(visited[index+""] && breaker++ < 33) index = (index % 33) + 1;
+		// 	if(breaker == 34) return 0;
+		// 	visited[index+""] = index;
+		// 	return index;
+		// }
 
-		// pick an unvisited index (1-32), 0 is a failure
-		function rollNewRoom(){
-			var index = Math.floor(Math.random * 32) + 1;
-			var breaker = 0;// no infinite loops
-			while(visited[index+""] && breaker++ < 33) index = (index % 32) + 1;
-			if(breaker == 33) return 0;
+		// select the next room - favouring least visited for replay value
+		function getNewRoom(bonus){
+			var index = 0;
+			if(bonus){
+				// roll when go deeper
+				index = rng.value(0, 20) + bonus;
+				if(index > totalRooms){
+					return index;// found center
+				}
+			} else {
+				// any room
+				index = rng.value(1, totalRooms + 1);
+			}
+			// find a room we visited the least
+			var count = 0;
+			while(visited[index+""] && visited[index+""] >= played){
+				count++;
+				index++;
+				if(index > totalRooms) index = 1;
+				if(count >= totalRooms){
+					count = 0;
+					played++;
+				}
+			}
+			console.log("new room, index:"+index+" played:"+played);
+			visited[index+""] = played;
 			return index;
 		}
 		
@@ -74,7 +104,8 @@ var rng = {
 			if(history.length > 3 && history.length < 28){
 				for(var i = 0; i < 3; i++){
 					history.pop();
-					history.push(rollNewRoom());
+					// history.push(rollNewRoom());
+					history.push(getNewRoom());
 				}
 				rng.shuffle(history);
 			}
@@ -83,6 +114,32 @@ var rng = {
 			console.log("changeRooms:", history);
 		}
 		story.BindExternalFunction("changeRooms", changeRooms);
+		
+		// called before a #RESET
+		function resetRooms(){
+			history = [0];
+			// visited = {"0":true};
+		}
+		
+		// add keyboard controls
+		var optionsToKeys = [];
+		function onKeyDown(event){
+			var code = event.keyCode;
+			if(code >= 49 && code <= 57){// keys 1-9
+				code -= 49;
+			} else if(code >= 97 && code <= 105){// numpad 1-9
+				code -= 97;
+			} else if(code == 13 || code == 14 || code == 32){// Enter / Return / Space 
+				code = 0;
+			} else {
+				return;
+			}
+			console.log("option key:"+code);
+			if(optionsToKeys.length > code){
+				optionsToKeys[code].click();
+			}
+		}
+		window.addEventListener("keydown", onKeyDown);
 
 
     var savePoint = "";
@@ -236,6 +293,8 @@ var rng = {
             delay += 200.0;
         }
 
+				optionsToKeys = [];
+
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
 
@@ -268,6 +327,9 @@ var rng = {
                 // Aaand loop
                 continueStory();
             });
+
+						optionsToKeys.push(choiceAnchorEl);
+
         });
 
         // Extend height to fit
@@ -281,6 +343,9 @@ var rng = {
     }
 
     function restart() {
+
+				resetRooms();
+
         story.ResetState();
 
         setVisible(".header", true);
@@ -426,7 +491,7 @@ var rng = {
         let saveEl = document.getElementById("save");
         if (saveEl) saveEl.addEventListener("click", function(event) {
             try {
-                window.localStorage.setItem('save-state', savePoint);
+								window.localStorage.setItem('save-state', savePoint);
                 document.getElementById("reload").removeAttribute("disabled");
                 window.localStorage.setItem('theme', document.body.classList.contains("dark") ? "dark" : "");
             } catch (e) {

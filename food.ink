@@ -36,7 +36,7 @@ In this room is a table laden with food. Large joints of meat, bread cakes, and 
 ~ lucky = false
 ~ gold += 2
 You pick up an apple from the pile, it feels odd. Tapping it against the table makes a stony sound. You find that the rest of the food here is also made of stone, painted to look real and edible.
-Frustrated you search further and find 2 gold coins at the bottom of a bowl of petrified pears. It's something at least.
+Frustrated you search further and find 2 gold coins at the bottom of a bowl of petrified pears.
 -> navigate
 
 = bite
@@ -44,9 +44,12 @@ You reach towards an apple and it splits open revealing sharp teeth. The other a
 -> bite_opt
 
 = bite_opt
-~ temp_chance = 70
-* [Attack the apples. (%{temp_chance})]-> fight
-+ [Return the way you came.]-> go_direction(-1)
+~ chance_1 = 65 + brandish * 10
+* [Attack the apples. (%{chance_1})]-> fight
++ [{backtrack()}]-> go_direction(-1)
+* (brandish){inventory ? multipass}[Brandish your pendant.]
+    You hold up your pendant and the apples hiss in reply. They're not scared of it but you've annoyed them enough to give you an edge in fighting them.
+    -> bite_opt
 
 = return_bite
 You return to the room with the table of food. Its monstrous apple guardians, open their jagged mouths to snarl at you.
@@ -58,7 +61,7 @@ You return to the room with the lithlogical banquet. It's still not edible.
 
 = fight
 You strike with your spear impaling the nearest apple-thing.
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 Its siblings <>
 {
     - isSuccess:leap unnaturally off of the table at you but you're able to bat them aside. One after another you hack them in two with your spear.
@@ -66,7 +69,7 @@ Its siblings <>
         {
             - stamina > 0:leap unnaturally off of the table at you. You cut all but one of them down which sinks its teeth into your shoulder. You tear it free before throwing it to the floor and spiking it to a hissing death.
             - else:fly off of the table, their unnatural flight taking you by surprise. You struggle to shake them free but their bite seems to be venomous and convulsions bring you to the floor.
-                -> END
+                -> THE_END
         }
 }
 ~gold++

@@ -13,8 +13,8 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
 -> opt
 
 = opt
-~ temp_chance = 30
-+ [Return the way you came.]-> go_direction(-1)
+~ chance_1 = 30
++ [{backtrack()}]-> go_direction(-1)
 * (nim) "I'm not a snack[."]", you say.
     The troll leans towards you and speaks low and slow:
     "You don't get to tell Nim of the Stones what is or isn't a snack.
@@ -62,18 +62,27 @@ You enter a room and stumble backwards from the huge creature sitting hunched ov
 + {stamina > 1} [Run through the troll's limbs. (-1 stamina)]
     ~ loseStamina()
     -> run_thru
-+ {stamina == 1} [Run through the troll's limbs. (%{temp_chance})]
-    <- rollChance(temp_chance)
++ {stamina == 1} [Run through the troll's limbs. (%{chance_1})]
+    <- rollChance(chance_1)
     {
     - isSuccess:-> run_thru
     - else:
         ~ loseStamina()
         -> dead
     }
+* {inventory ? multipass}[Brandish your pendant.]
+    You present the pendant the Maze Builder gave you.
+    "What's that?" it asks, "a gift?"
+        * * "No[."], you reply.
+            "Then what are you showing me it for? That's as stupid as going first in a game of stones." The troll looks smug. Then they avoid eye contact, as if they've just realised they've given away a big secret.
+            -> opt
+        * * "Yes[."]", you reply.
+            The troll reaches out to grab it, but then you duck under its arm and dash beyond its grasp.
+            * * * [Exit. {dirName()}] -> go_direction(1)
     
 = run_thru
 {~You dash to the left and the troll reaches for you, only for you to dive under its grasp into a roll.<br><br>"Come back here!" bellows the troll.<br><br>You ignore its request as you spring to your feet and make your exit.|You run straight towards the troll and then double back to slide under the arms that swoop in behind you. Then you leap up and start running towards an exit.}
-+ [Exit.]-> go_direction(1)
++ [Exit. {dirName()}]-> go_direction(1)
 
 = dead
 You bolt towards the troll, aiming to double back and jump over its arms but the monster outwits you. It opens its thighs, trapping its arms but allowing it to lean forwards. The troll's head ducks down from above to bite you from the floor.
@@ -82,7 +91,7 @@ Huge scything teeth of stone cut into you again and again. Then it stops, an inr
     "I chewed on a dumb kobold."
     "It was lean and rather bony -"
     The pain is too much. Your heart does you the favour of ceasing to work and you are saved from hearing the next verse by your death.
--> END
+-> THE_END
 
 = game
 ~ nim_turns++
@@ -128,10 +137,11 @@ Huge scything teeth of stone cut into you again and again. Then it stops, an inr
 
 = win_opt
 * "Did they leave any gold with you?"[] you ask.
-    ~gold += 8
+    ~ gold += 8
+    ~ inventory += nim_stone
     The troll snaps out of its reverie. It looks at you, opens its mouth, then closes it. Fearful of your powers.
-    The monster reaches behind itself, paws around, and then throws a pouch that hits the floor with a satisfying jingle.
-    You pick it up and find 8 gold pieces inside. The troll resumes counting on its fingers.
+    The monster reaches behind itself, paws around, and then throws a pouch that hits the floor with a satisfying jingle.You pick it up and find 8 gold pieces inside.
+    As the troll resumes counting on its fingers you pinch one its stones and put it in your bag. The troll's next victim will be able to win by playing first, confusing it further.
     <- win_opt
     -> navigate
 

@@ -1,4 +1,5 @@
 VAR toadstool_hit = false
+VAR pixel_gold = 0
 
 === toadstools
 <- title("Toadstools", toadstools)
@@ -8,8 +9,8 @@ VAR toadstool_hit = false
 The floor in this room has been ripped up, exposing the earth and making the air damp. Two huge and poisonous looking toadstools dominate the center of the room. They uproot themselves, standing on fibrous hooves before slowly marching towards you.-> opt
 
 = opt
-~ temp_chance = 60 + fight * 10 + advantage * 5
-+ {fight < 2}[Attack. (%{temp_chance})]-> fight
+~ chance_1 = 60 + fight * 10 + advantage * 5
++ {fight < 2}[Attack. (%{chance_1})]-> fight
 * (advantage){fight < 2} [Look for an advantage.]
     ~ wisdom++
     You recall something vague about walking mushroom monsters but it's hard to grasp. A tale told by an old kobold that used to fix the plumbing around the mountain. Over time you dismissed it as tall story, no bestiary mentions his turtle people or their partially draconic rulers. You're sure he made a great fuss about attacking from above. {not fight:A sound plan if it's not poisonous.|A risky move whilst there's two of them to deal with.}
@@ -17,7 +18,7 @@ The floor in this room has been ripped up, exposing the earth and making the air
 + {toadstool_hit && fight < 2} [Run away.]
     Having scored a victory you take advantage of the situation to exit the room on your own terms.
     -> navigate
-+ {!toadstool_hit && fight < 2} [Return the way you came.]-> go_direction(-1)
++ {!toadstool_hit && fight < 2} [{backtrack()}]-> go_direction(-1)
 
 = returning
 ~ toadstool_hit = false
@@ -33,7 +34,7 @@ You return to the toadstool room. <>
 
 = fight
 ~ toadstool_hit = true
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {
 - isSuccess:-> survive
 - else:
@@ -46,7 +47,7 @@ You return to the toadstool room. <>
 
 = death
 You plunge your spear into the dome of {fight == 2:a|the} toadstool and it releases a cloud of spores. You try to escape but a numbness rises up from your legs and pulls you to the floor. You can barely feel the life being stamped out of you afterwards. It is a very considerate death.
--> END
+-> THE_END
 
 = survive
 {
@@ -62,6 +63,7 @@ You plunge your spear into the dome of {fight == 2:a|the} toadstool and it relea
         {
             - not isSuccess:Its remains are a slippery mess and you fall over {RANDOM(2, 4)} times before being able to leave.
         }
-        On your way out you find {loot(3, 5)} gold coins that must have been buried in the flesh of your foes.
+        ~ pixel_gold = loot(4, 6)
+        On your way out you find {pixel_gold} gold coins that must have been buried in the flesh of your foes. Each one appears to be made of many small squares.
         -> navigate
 }

@@ -19,7 +19,7 @@ The structure is a morass of prefabricated corridors and rooms. The walls, floor
     - else:{~The corridor ahead branches, you take the {~right|left} one.|The passage ahead leads to a dead end. You're forced to backtrack and take another route.|You leave and enter the maze of passages.|You enter the corridors and take several {~right|left} turns before you realise you're going in circles. Then you take another {~right|left} into a new room.}
 }
 {
-    - depth + wisdom >= 16:{You must have passed the halfway point by now.|}
+    - depth + wisdom >= 11:{You must have passed the halfway point by now.|}
 }
 -> DONE
 

@@ -1,5 +1,4 @@
 === grease
-<- title("", template)
 <- title("Grease", grease)
 {-> enter | -> returning}
 
@@ -8,14 +7,14 @@ You step into this room and begin to slide uncontrollably across the floor. Some
 -> opt
 
 = opt
-* (stay){stamina > 0}[Try to stay put. (-1 stamina)]
+* (stay){stamina > 1}[Try to stay put. (-1 stamina)]
     ~ loseStamina()
     ~ gold++
     Wedging the butt of your spear into a gap in the flagstones, your slide turns into a slow orbit. After {RANDOM(2, 5)} turns trying to brake with your feet turned sideways, you've created a clean spot in the center of the room. You have come to a halt at last.
     Under the grease nearby you spot a gold coin. Reaching out from your clean spot you fish it in with your spear.
     <- opt
     -> navigate
-+ {not stay} [Do nothing and slide out out of the room.]
++ {not stay} [Do nothing and slide out out of the room. {dirName()}]
     You continue your slide unabated until you've left the room completely. 
     -> go_direction(1)
 * {stay} [Survey the room.]
@@ -25,6 +24,9 @@ You step into this room and begin to slide uncontrollably across the floor. Some
     You hope it's no longer relevant.
     <- opt
     -> navigate
+* {not stay && inventory ? multipass}[Brandish your pendant.]
+    You hold aloft your pendant to defy the magical grease. Nothing happens and you look a bit silly as you slide out of the room. 
+    -> go_direction(1)
 
 = returning
 You return to the greasy room, <>

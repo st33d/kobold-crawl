@@ -4,13 +4,21 @@
 
 = enter
 The walls in this room are seemingly black. You casually wave a buzzing fly away from your face before you are forced to dismiss another, and another. The room hums as the black peels away from the walls and the room fills with flies.
+They block any attempt at passing through.
 -> opt
 
 = opt
-~ temp_chance = 60 + run_circle * 25
-+ {!dead_flies}[Swat some flies. (%{temp_chance})]-> swat
-* [Run in a circle. (-1 stamina)] -> run_circle
-+ {!dead_flies}[Return the way you came.]-> go_direction(-1)
+~ chance_1 = 60 + run_circle * 25 + brandish * 10
++ {!dead_flies}[Swat some flies. (%{chance_1})]-> swat
+* {stamina > 1}[Run in a circle. (-1 stamina)] -> run_circle
++ {!dead_flies}[{backtrack()}]-> go_direction(-1)
+
+* {!dead_flies && run_circle}[Run past them. {dirName()}]
+    You use the advantage you've gained to escape the room, the flies giving chase as you do do. You doubt you'll be able to evade them like this again if you return.
+    -> go_direction(1)
+* (brandish){inventory ? multipass}[Brandish your pendant.]
+    You hold up the pendant the Maze Builder gave you. The flies seem drawn to it rather than warded off - but it gives you some advantage in attacking them.
+    -> opt
 
 = run_circle
 ~ loseStamina()
@@ -26,7 +34,7 @@ You return to the room of flies. <>
 }
 
 = swat
-<- rollChance(temp_chance)
+<- rollChance(chance_1)
 {not isSuccess:
     ~loseStamina()
 }
@@ -36,11 +44,11 @@ You return to the room of flies. <>
             - flies > 0: You frantically stab, stamp, and slap every fly in the room. Finally the buzzing ceases and you 
             - else: You strike out at every fly in the room. A ceaseless montage of slaps, stabs, and stamps. There are too many. You 
         }<> collapse in exhaustion. You know that if you pass out you will surely be dispatched in your sleep. You close your eyes for a brief moment and never open them again.
-        -> END
+        -> THE_END
     -else:
         {You thrust your spear into the mass of flies, again and again. Stabbing and twirling. You throw a kick in there as well for effect. You're pretty sure you managed to get at least half of them.|You put down your spear and resort swatting the flies with your hands. It takes some time but eventually you murder every last one of them.-> dead_flies }
         <- opt
-        + [Get out of there.]-> go_direction(1)
+        + [Get out of there. {dirName()}]-> go_direction(1)
 }
 
 = dead_flies
