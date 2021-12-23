@@ -22,7 +22,7 @@ You return to the room with the grindstone. It persists in being awkwardly benef
 -> navigate
 
 = sharpen
-You sit down to sharpen your spear. <>
+You sit down to sharpen your spear.
 {
     - not lucky:
         ~ loseStamina()
@@ -30,7 +30,7 @@ You sit down to sharpen your spear. <>
         {The pedals are mercilessly stubborn. Eventually you get the wheel up to speed and set about sharpening your spear. You clear away all of the tarnished metal leaving a gleaming edge.|You trudge out another spin from this petrified exercise machine. Your spear is already sharp, but good omens come from sharpening spears. You clean off some dust and add a bevel to the butt of the spear to make it nicer to handle.|You work up a good spin from the wheel, your legs becoming used to this routine. There's a few spinters you've noticed on the shaft of your spear, you shave them off with this iteration of the grindstone.|You can't get enough of this. Your spear won't get any sharper but you caress the spear head near to the wheel to get those precious good omens.}
             A little out of breath, you get up and leave with your improved spear.
     
-    -else:, but as you do you notice your spear is pretty sharp already. Perhaps you should tackle a few more rooms before using the grindstone.
+    -else:But as you do you notice your spear is pretty sharp already. Perhaps you should tackle a few more rooms before using the grindstone.
 }
 <- opt
 -> navigate

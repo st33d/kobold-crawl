@@ -66,13 +66,14 @@ Its siblings <>
 {
     - isSuccess:leap unnaturally off of the table at you but you're able to bat them aside. One after another you hack them in two with your spear.
     - else:
+        ~ loseStamina()
         {
             - stamina > 0:leap unnaturally off of the table at you. You cut all but one of them down which sinks its teeth into your shoulder. You tear it free before throwing it to the floor and spiking it to a hissing death.
             - else:fly off of the table, their unnatural flight taking you by surprise. You struggle to shake them free but their bite seems to be venomous and convulsions bring you to the floor.
                 -> THE_END
         }
 }
-~gold++
+~ gold++
 After you dispatch the apples you use your spear to prod the remaining food. It seems safe. You even find a gold coin nestled amoung the produce.
 <- eat_opt
 -> navigate
@@ -91,7 +92,7 @@ The smell of dead apples fills the air.
 + {not consume} [Eat.]
     {
        - stamina == STAMINA_TOTAL:The food looks tasty, but perhaps you should save it for later.
-            ->->
+            -> navigate
        -else:-> consume
     }
 

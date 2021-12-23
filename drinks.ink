@@ -160,14 +160,16 @@ You pull the heavy barrel over to your edge of the bar and put your mouth below 
     "No idea", she explains, "I was asked to memorise introductions for each of the drinks. Then they told me not to drink anything."
     A moment passes and she pushes both bottles towards you to reiterate the offer.-> pick_red_green
 + {stamina == STAMINA_TOTAL} "Actually I don't need healing or killing[."]", you say.
-    "Ah", she takes away the bottles and returns with vial of black bubbling goo. "Perhaps I can interest you in something to change your luck. I'm pretty sure this might not be deadly."-> luck_options
+    "Ah", she takes away the bottles and returns with vial of black bubbling goo. "Perhaps I can interest you in something to change your luck. I'm pretty sure this might not be deadly."
+    -> luck_options
 + {stamina < STAMINA_TOTAL} "I'm not thirsty[."]", you reply.
     "Well I'll still be here if that changes", she says, "good luck."-> leave
 
 
 = luck_options
     * "Change my luck how?"[] you slowly ask.
-        "Well that really is a matter of perspective", she replies, "I just thought I'd cover all the bases."-> luck_options
+        "Well that really is a matter of perspective", she replies, "I just thought I'd cover all the bases."
+        -> luck_options
     + [Drink the vial of goo.]
         You take the vial and raise it to your lips. You catch the scent of {~corpses|rotten food|a blocked sink} so you take a deep breath and try to down it. <>
         {
@@ -209,7 +211,8 @@ You take a sip of the drink. It tastes good. You drink the rest.
 
 You knock it back it one. {~Your limbs seize up and you are racked with convulsions|You vomit something red streaked with black for a full {RANDOM(5, 10)} seconds.|You suddenly start sneezing uncontrollably. You sneeze so many times your nose is bleeding.|You black out, vaguely aware of hitting the floor in a very undignified manner. You wake up in great pain.|You feel the drink crawl its way back up your throat and out of your mouth. Choking you in the process. You cough out a horrid brown slug thing that splashes on to the floor. It pulsates before slithering away at frightening speed.} You take a moment to recover.
 "Another?" she asks.
-+ "No[."]", you say.-> leave
++ "No[."]", you say.
+    -> leave
 
 = pour
 She pours it into a {&small glass|tall glass|wooden cup|wooden bowl|clay mug|clay jug|tiny open topped barrel}.

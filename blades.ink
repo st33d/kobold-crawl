@@ -16,9 +16,8 @@ You enter this space and your eye is drawn to a deep gouge that runs around the 
     - else: -> crawl_failure
     }
 + [Attempt to catch whatever comes out. (%{chance_catch})]
-    You position yourself ready to stop the trap.
+    You position yourself ready to stop the trap. Huge cantilevered blades swing out from the gouges.
     <- rollChance(chance_catch)
-    Huge cantilevered blades swing out from the gouges. <>
     {
     - isSuccess:-> catch_success
     - else: -> catch_failure

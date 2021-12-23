@@ -111,20 +111,20 @@ Huge scything teeth of stone cut into you again and again. Then it stops, an inr
     You take {takeStone(3)}. {stones} remain{stones == 1:s}.
 -
 {
-    -stones > 0:->it_takes
-    -else:->win
+    - stones > 0:-> it_takes
+    - else:-> win
 }
 
 = it_takes
 ~ temp remaining = stones % 4
 {
-    -stones == 4:It frowns at the stones, sensing defeat is near. The trolls hand wavers over the rocks and then it takes {takeStone(RANDOM(1, 2))}. {stones} stones remain.
+    - stones == 4:It frowns at the stones, sensing defeat is near. The troll's hand wavers over the rocks and then it takes {takeStone(RANDOM(1, 2))}. {stones} stones remain.
         -> game
-    -else:The troll takes {takeStone(remaining)}. {stones} remain.
+    - else:The troll takes {takeStone(remaining)}. {stones} remain.
         {
-            -stones > 0:-> game
-            -else:
-            ~nim_losses++
+            - stones > 0:-> game
+            - else:
+            ~ nim_losses++
             "I've taken the last stone", it says, "that means I win. {And that also means I get to eat you. Now, do kobolds need seasoning or can I just eat you raw?|You're getting eaten.}" The troll reaches to grab you.
             -> opt
         }
@@ -170,7 +170,7 @@ You return to the room with the mountain troll. <>
     "I eat you", it replies, grinning with a mouth full of flint blades.
     -> what
 * {lose} "How do I win?"[] you ask.
-    ~wisdom++
+    ~ wisdom++
     "Oh that's easy", it says, "all you have to do is make sure there's four -
     "Hang on a minute, you're not winning, I'm winning." It glares at you, unwilling to reveal more of its strategy.
     -> what

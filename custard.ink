@@ -62,7 +62,7 @@ You take a step back and then dash across the pool.
          - else: -> sink
         }
 }
--> go_direction(1)
++ [Exit. {dirName()}]-> go_direction(1)
 
 
 = sink

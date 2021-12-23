@@ -4,6 +4,11 @@ VAR slam_side = right
 
 === right_left_slam
 ~ temp name = "Right Left"
+~ slam_side = right
+{
+    - RANDOM(0, 1) == 1:
+        ~ slam_side = left
+}
 {
     - slam_side == left:
         ~name = "Left Right"
@@ -12,7 +17,7 @@ VAR slam_side = right
 {-> enter | -> returning}
 
 = enter
-You enter this room and thick rectangular wall shoots down from the ceiling and slams into the floor. it cuts off the right side of the room. It rises swiftly. Moments later a similar wall crashes into the floor on the left side. It rises up too.
+You enter this room and thick rectangular wall shoots down from the ceiling and slams into the floor. it cuts off the {slam_side} side of the room. It rises swiftly. Moments later a similar wall crashes into the floor on the {slamOther(slam_side)} side. It rises up too.
 -> opt
 
 = opt
@@ -31,7 +36,7 @@ You enter this room and thick rectangular wall shoots down from the ceiling and 
 + [{backtrack()}]-> go_direction(-1)
 
 = running
-You sprint forth to the {slam_run}. <>
+You sprint forth to the {slam_run}.
 {
     -slam_run == slam_side:-> hit ->
     -else:-> dodge ->
@@ -59,11 +64,14 @@ The wall on {slamOther(slam_run)} side smashes into the floor. You make haste to
 
 = disarm
 ~ gold--
-~ wisdom++
-You feed a gold coin into the spinning gears you see within the walls of the room. There's a clunk, then a click, then a clang. The {slam_side} side wall slowly descends and stops halfway. You wait a while, just to be sure of no surprises. Then you make your way out of the room.
+~ inventory += chip_block
+You feed a gold coin into the spinning gears you see within the walls of the room. There's a clunk, then a click, then a clang. The {slam_side} side wall slowly descends and stops halfway.
+There's a loose chip of stone on it. You snap it off to keep as a trophy.
+Then you wait a while, just to be sure of no surprises, and make your way out of the room.
 -> navigate
 
 = watch
+~ wisdom++
 You wait for the next move the trap will make. The {slam_side} side wall drops down and smacks into the floor before rising again. As it does so you notice some of the stonework has come away on the side walls of the room in response to this endless violence. You can see turning gears and machinery. If you fed something in there - like a gold coin - it could bring the trap to a halt.
 ~ slamChange()
 -> opt

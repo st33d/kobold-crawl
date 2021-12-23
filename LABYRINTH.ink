@@ -42,9 +42,10 @@ INCLUDE TODO.txt
 
 EXTERNAL setRoomIndex()
 EXTERNAL changeRooms()
+EXTERNAL isLooped()
 
 CONST STAMINA_TOTAL = 5
-LIST items = bird, golden_apple, multipass, another_apple, quaid_coin, falconsloth_red, falconsloth_blue, nim_stone, glass_eye, pinch_of_salt, cursed_ring
+LIST items = bird, golden_apple, multipass, another_apple, quaid_coin, falconsloth_red, falconsloth_blue, nim_stone, glass_eye, pinch_of_salt, cursed_ring, wind_name, pint_of_black, money_nothing, chip_block
 
 VAR depth = 0// index in stack of rooms
 VAR depth_lowest = 0// the lowest depth we've visted
@@ -57,17 +58,15 @@ VAR lucky = false// gives advantage on next dice roll
 VAR isSuccess = false// did we succeed at <-rollChance()
 VAR isEnding = false// is this the end of the maze?
 VAR isReachedCenter = false// have we been to the center?
+VAR isReplay = false// is this a replay?
 
 // temporaty VARs for tracking chance
 VAR chance_1 = 0
 VAR chance_2 = 0
-VAR chance_3 = 0
 
 VAR gold = 0// score
 //VAR stamina = 1
 VAR stamina = STAMINA_TOTAL
-
-//~inventory += potion
 
 // =======================================
 // CORE LOOP
@@ -81,6 +80,9 @@ VAR stamina = STAMINA_TOTAL
 === function changeRooms()
 ~ return
 
+=== function isLooped()
+~ return false
+
 === navigate
 + {depth > 0}[Go back.] -> go_back
 + {not isEnding}[Go deeper.] -> go_deeper
@@ -91,6 +93,9 @@ VAR stamina = STAMINA_TOTAL
 {isReachedCenter && depth > 0 && lucky:
     <- passages.lucky_return
 }
+{isLooped():
+    <- passages.dejavu
+}
 // (depth {depth})
 -> new_room
 
@@ -100,6 +105,9 @@ VAR stamina = STAMINA_TOTAL
 {depth > depth_lowest:
     ~depth_lowest = depth
     <- passages
+}
+{isLooped():
+    <- passages.dejavu
 }
 // (depth {depth})
 -> new_room
@@ -142,17 +150,17 @@ VAR stamina = STAMINA_TOTAL
     - 20:-> eye_thing
     - 21:-> nim_troll
     - 22:-> drinks_bar
-    - 23:-> flies
-    - 24:-> mist
-    - 25:-> quaid_doubler
-    - 26:-> suit_of_armour
-    - 27:-> beligerent_huff
-    - 28:-> limerick
-    - 29:-> black_pool
-    - 30:-> custard
-    - 31:-> hands
-    - 32:-> pudding
-    - 33:-> toadstools
+    - 23:-> mist
+    - 24:-> quaid_doubler
+    - 25:-> beligerent_huff
+    - 26:-> limerick
+    - 27:-> black_pool
+    - 28:-> custard
+    - 29:-> hands
+    - 30:-> flies
+    - 31:-> pudding
+    - 32:-> toadstools
+    - 33:-> suit_of_armour
     - else:
         ~ isEnding = true
         ~ isReachedCenter = true
@@ -166,7 +174,7 @@ VAR stamina = STAMINA_TOTAL
 ~ isEnding = false
 { room_index:
     - 0:-> room1
-    - 1:-> center
+    - 1:-> custard
     - 2:-> room2
     - 3:-> room3
     - 4:-> room4

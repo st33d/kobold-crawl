@@ -73,6 +73,7 @@ The creature spins round to face you and a <>-> blast ->
         -> sneak
 
 = spectacles
+~ wisdom++
 You pick up the armature of glass from the floor and present it to the monster. Its big eye dilates and the mouth gives you a horrifying grin. Gingerly it wraps some of its stalks around the strange frame to augment itself.
 "Ah!" it gasps. It takes a look around the room and then turns to face you. The monster's magnified eyes perform a chorus of blinks. It looks less threatening behind its collection of lenses.
 "You're a kobold", the monster states.

@@ -4,13 +4,16 @@
 
 = enter
 You stumble to a stop at the edge of this room. Where the floor should be is just a square of black that absorbs all light. Surrounding it is a thin ledge, enough to support your heels only. The black looks like it might be a pool of something, or perhaps a barrier of magical darkness.
+Halfway along the ledge are a few bottles. All empty except for one.
 -> opt
 
 = opt
 ~ temp chance_edge = 50
 ~ temp chance_walk = 60 + test * 10
 + [Walk around the edge to an exit. (%{chance_edge})]
+    ~ inventory += pint_of_black
     Pressing your back against the wall you shuffle your way around the edge of the room. Your toes hang over the thin ledge, threatening to slip forward and disappear into the black.
+    {Halfway along you're forced to kick the empty bottles away. You pick up the full one, its contents are black. You put it in your bag.|}
     <- rollChance(chance_edge)
     -> walkEdge
 + {test == 0} [Test the darkness with your spear.]-> test
@@ -21,6 +24,9 @@ You stumble to a stop at the edge of this room. Where the floor should be is jus
 
 = returning
 You return to the room with the black floor. Its tenebrous platform continues to hide what lurks below.
+{
+    - inventory ? pint_of_black == false:The bottles on the edge of the pool are still there.
+}
 -> opt
 
 = walkEdge

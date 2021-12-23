@@ -63,7 +63,7 @@ On the floor the book slowly opens its mouth, betting its bite against your spea
     }
 }
 ~ wisdom++
-You survey the room, making sure that this was the only lesson the book had to teach. Satisfied the area is clear you feel you learned it well: The creator of this place has a terrible sense of humour.
+You survey the room, making sure that this was the only lesson the book had to teach. Satisfied the area is clear you feel you learned it well: The Maze Builders have a terrible sense of humour.
 <- opt
 -> navigate
 
@@ -107,7 +107,7 @@ You take The Kobold Emancipation by Hneet Emjinti down from its shelf{| again}. 
 -> passage
 
 = passage
-<i>{&For many years our ancestors gathered around the Great Abyss but no masters came forth. Such is the fate of many kobold tribes who failed to protect their former masters from being slain by the righteous and the greedy.|Some of us trace our lineage to those in servitude to the great dragon Felkar - who was slain by a kobold. This raises an important question: Was Felkar a worthy master, or are kobolds just bad servants?|-> finish_book}</i>
+<i>{&For many years our ancestors gathered around the Great Abyss but no masters came forth. Such is the fate of many kobold tribes who failed to protect their former masters from being slain by the righteous and the greedy.|Some of us trace our lineage to those in servitude to the great dragon Felkar - who was defeated by a kobold. This raises an important question: Was Felkar a worthy master, or are kobolds just bad servants?|-> finish_book}</i>
 + [Return the book to the shelf.]
     You return the book to its shelf.
     <- opt

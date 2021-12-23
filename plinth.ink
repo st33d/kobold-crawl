@@ -12,11 +12,11 @@ In the center of this room you see a simple stone plinth. It is lit from a hole 
 = opt
 + {plinth_took == 0}[Knock the coins off the plinth {trapped:again }with your spear.]-> trapped
 + {plinth_took > 0 && plinth_took < plinth_coins}[Knock the coin off the plinth {trapped:again }with your spear.]-> trapped
++ {plinth_took == 0}[{backtrack()}]-> go_direction(-1)
++ {plinth_took == plinth_coins-1}[Return through the open exit.]-> go_direction(-1)
 + {plinth_took == 0}[Walk past the plinth. {dirName()}]
     You walk past the display, side-eyeing the tempting offer it presents. {There seems to be no other traps in this room.|}
     -> go_direction(1)
-+ {plinth_took == 0}[{backtrack()}]-> go_direction(-1)
-+ {plinth_took == plinth_coins-1}[Return through the open exit.]-> go_direction(-1)
 
 = returning
 {

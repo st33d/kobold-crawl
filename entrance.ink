@@ -3,7 +3,11 @@
 
 = enter
 <hr>
-<center><h3>How to Play</h3></center>
+<center><h3>How to {isReplay:Replay|Play}</h3></center>
+
+{
+    - isReplay:The entrance and center remain unchanged, but rooms you have not seen will be selected until they run out. Reload the game for the default experience.
+}
 This is a "depth crawl". You only <i>go deeper</i> into the maze or <i>go back</i>. Each step deeper chooses a room at random, and each step deeper increases the chance of finding the center.
 
 You have {stamina} points of Stamina, be careful not to lose them all.
@@ -147,7 +151,19 @@ You left the labyrinth with:
     - inventory ? falconsloth_red:A red-shifted falconsloth feather.
 }
 {
+    - inventory ? wind_name:The name of the wind.
+}
+{
+    - inventory ? pint_of_black:A pint of black.
+}
+{
+    - inventory ? chip_block:A chip off the old block.
+}
+{
     - inventory ? pinch_of_salt:A pinch of salt.
+}
+{
+    - inventory ? money_nothing:Money for nothing.
 }
 And was enlightened {wisdom} time{wisdom != 1:s}.
 <hr>

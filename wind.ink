@@ -47,7 +47,9 @@ In the space below you can see a huge wooden shaft ending in a complex different
 
 = penny
 ~ gold--
-You throw a coin into the gears of the drive chain powering the windmill. There is an almighty crack as the unstoppable force of the gears meets an awkward object. Through your feet you feel the splinter and snap of wooden parts beneath the dungeon floor. The death throes of the windmill sends a final cough of splinters at its mesh platform before groaning to a halt. 
+~ inventory += wind_name
+You throw a coin into the gears of the drive chain powering the windmill. There is an almighty crack as the unstoppable force of the gears meets an awkward object. Through your feet you feel the splinter and snap of wooden parts beneath the dungeon floor. The death throes of the windmill sends a final cough of splinters at its mesh platform before groaning to a halt.
+Amongst the debris you find a small plaque with some runes etched on it. Perhaps it's the name of the manufacturer. You put in your bag.
 -> opt
 
 = crawl

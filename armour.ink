@@ -99,5 +99,5 @@ It tries to block your path but you fake a {&left|right} and dodge it easily.
 * [Scatter the armour]
     You kick the pieces of armour away from one another. They let out mournful plumes of vapour. The helmet you leave for last - an inscription on the back of it reads, "eternally guarded, contents discarded".
 -
-Among the debris you notice a glint of yellow. You find and pick up {loot(2, 4)} gold coins.
+Among the debris you notice glints of yellow. You find and pick up {loot(5, 8)} gold coins.
 -> navigate

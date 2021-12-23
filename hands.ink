@@ -7,9 +7,9 @@ Reaching up from cracks in the floor of this room are zombified arms. They make 
 -> opt
 
 = opt
-~ chance_1 = 60 + brandish * 5
+~ chance_1 = 60 + brandish * 5 + look * 5
 + [Run through the room. (%{chance_1})]-> run
-* [Look for another route]
+* (look)[Look for another route]
     ~ wisdom++
     You look around the room to see if there's a less risky approach. No footholds or grips can be seen. Finally you glance up at the ceiling. Poking down from similar cracks to the ones in the floor are zombie feet. Their toes wiggle uncertainly.
     You poke one of them with your spear. It struggles. None of the other feet or arms seem to mind.

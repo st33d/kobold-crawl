@@ -36,6 +36,7 @@ var rng = {
 		var visited = {"0":1};
 		var played = 1;
 		var totalRooms = 33;
+		var looped = false;
 		
 		function setRoomIndex(){
 			var depth = story.variablesState["depth"];
@@ -46,26 +47,12 @@ var rng = {
 				index = history[depth];
 			} else {
 				// roll new room
-				// index = depth + wisdom + rng.value(0, 20);
-				// while(visited[index+""]) index++;
 				index = getNewRoom(depth + wisdom);
 				history.push(index);
-				// visited[index+""] = true;
 			}
 			story.variablesState["room_index"] = index;
-			console.log("setRoomIndex:", depth, wisdom, index);
 		}
 		story.BindExternalFunction("setRoomIndex", setRoomIndex);
-		
-		// pick an unvisited index (1-33), 0 is a failure
-		// function rollNewRoom(){
-		// 	var index = Math.floor(Math.random() * 33) + 1;
-		// 	var breaker = 0;// no infinite loops
-		// 	while(visited[index+""] && breaker++ < 33) index = (index % 33) + 1;
-		// 	if(breaker == 34) return 0;
-		// 	visited[index+""] = index;
-		// 	return index;
-		// }
 
 		// select the next room - favouring least visited for replay value
 		function getNewRoom(bonus){
@@ -88,7 +75,9 @@ var rng = {
 				if(index > totalRooms) index = 1;
 				if(count >= totalRooms){
 					count = 0;
+					console.log("ALL ROOMS PLAYED:"+played);
 					played++;
+					looped = true;
 				}
 			}
 			console.log("new room, index:"+index+" played:"+played);
@@ -104,7 +93,6 @@ var rng = {
 			if(history.length > 3 && history.length < 28){
 				for(var i = 0; i < 3; i++){
 					history.pop();
-					// history.push(rollNewRoom());
 					history.push(getNewRoom());
 				}
 				rng.shuffle(history);
@@ -114,11 +102,19 @@ var rng = {
 			console.log("changeRooms:", history);
 		}
 		story.BindExternalFunction("changeRooms", changeRooms);
+
+		// have we looped through all the content
+		function isLooped(){
+			var temp = looped;
+			looped = false;
+			return temp;
+		}
+		story.BindExternalFunction("isLooped", isLooped);
 		
-		// called before a #RESET
+		// called during #RESET
 		function resetRooms(){
 			history = [0];
-			// visited = {"0":true};
+			story.variablesState["isReplay"] = true;
 		}
 		
 		// add keyboard controls
@@ -140,6 +136,12 @@ var rng = {
 			}
 		}
 		window.addEventListener("keydown", onKeyDown);
+
+		
+		// test loop
+		// for(var i = 2; i <= 33; i++){
+		// 	visited[i+""] = played;
+		// }
 
 
     var savePoint = "";
@@ -344,14 +346,14 @@ var rng = {
 
     function restart() {
 
-				resetRooms();
-
         story.ResetState();
 
         setVisible(".header", true);
 
         // set save point to here
         savePoint = story.state.toJson();
+
+				resetRooms();
 
         continueStory(true);
 

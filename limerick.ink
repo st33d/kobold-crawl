@@ -72,7 +72,7 @@ You cast a golden coin towards the deadly creature.<br>It scuttles to the prize,
 * [Inspect the room.]
     ~ wisdom++
     ~ inventory += pinch_of_salt
-    You take a walk around the space looking for treasure and secrets. Your only discovery is that the floor at the edges of the room have a thin groove filled with a white crystaline powder. Probably salt. Perhaps it acted a protection circle to keep the magical limerick in place.
+    You take a walk around the space looking for treasure and secrets. Your only discovery is that the floor at the edges of the room has a thin groove filled with a white crystaline powder. Probably salt. Perhaps it acted as a protection circle to keep the magical limerick in place.
     You grab some and put it in your bag, maybe it will stop other creatures from stealing your gold.
     -> navigate
     
