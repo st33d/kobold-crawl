@@ -1,40 +1,14 @@
-// RNG toolkit
-var rng = {
-	shuffle: function (v){
-		for(var j, x, i = v.length; i; j = parseInt(Math.random() * i), x = v[--i], v[i] = v[j], v[j] = x);
-		return v;
-	},
-	value: function(min, max){// max exclusive
-		if(max){
-			min = min || 0;
-		} else if(min){
-			max = min;
-			min = 0;
-		} else {
-			// coin flip
-			min = 0;
-			max = 2;
-		}
-		return Math.floor(Math.random() * (max - min) + min);
-	},
-	pick: function(list){
-		return list[this.value(list.length)];
-	},
-	pluck: function(list){
-		if(list.length == 0) return null;
-		return list.splice(this.value(list.length), 1)[0];
-	}
-};
-
 (function(storyContent) {
 
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
 
-		// Depth crawl indexer
-		var history = [0];
-		var visited = {"0":1};
-		var played = 1;
+		// ============================================================
+		// DEPTH CRAWL INIT
+		
+		var history = [0];// The list of rooms
+		var played = 1; 
+		var visited = {"0":played};
 		var totalRooms = 33;
 		var looped = false;
 		
@@ -116,8 +90,9 @@ var rng = {
 			history = [0];
 			story.variablesState["isReplay"] = true;
 		}
+		// ============================================================
 		
-		// add keyboard controls
+		// I wanted keyboard controls
 		var optionsToKeys = [];
 		function onKeyDown(event){
 			var code = event.keyCode;
@@ -137,12 +112,7 @@ var rng = {
 		}
 		window.addEventListener("keydown", onKeyDown);
 
-		
-		// test loop
-		// for(var i = 2; i <= 33; i++){
-		// 	visited[i+""] = played;
-		// }
-
+		// main.js continues as normal for a while
 
     var savePoint = "";
 
@@ -295,6 +265,7 @@ var rng = {
             delay += 200.0;
         }
 
+				// keyboard controls will use this array
 				optionsToKeys = [];
 
         // Create HTML choices from ink choices
@@ -330,6 +301,7 @@ var rng = {
                 continueStory();
             });
 
+						// Keyboard input will click the option for us
 						optionsToKeys.push(choiceAnchorEl);
 
         });
