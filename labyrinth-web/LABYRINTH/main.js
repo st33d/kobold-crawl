@@ -3,116 +3,116 @@
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
 
-		// ============================================================
-		// DEPTH CRAWL INIT
-		
-		var history = [0];// The list of rooms
-		var played = 1; 
-		var visited = {"0":played};
-		var totalRooms = 33;
-		var looped = false;
-		
-		function setRoomIndex(){
-			var depth = story.variablesState["depth"];
-			var wisdom = story.variablesState["wisdom"];
-			var index = 0;
-			if(depth < history.length){
-				// load previously visited room
-				index = history[depth];
-			} else {
-				// roll new room
-				index = getNewRoom(depth + wisdom);
-				history.push(index);
-			}
-			story.variablesState["room_index"] = index;
-		}
-		story.BindExternalFunction("setRoomIndex", setRoomIndex);
+    // ============================================================
+    // DEPTH CRAWL INIT
+    
+    var history = [0];// The list of rooms
+    var played = 1; 
+    var visited = {"0":played};
+    var totalRooms = 33;
+    var looped = false;
+    
+    function setRoomIndex(){
+      var depth = story.variablesState["depth"];
+      var wisdom = story.variablesState["wisdom"];
+      var index = 0;
+      if(depth < history.length){
+        // load previously visited room
+        index = history[depth];
+      } else {
+        // roll new room
+        index = getNewRoom(depth + wisdom);
+        history.push(index);
+      }
+      story.variablesState["room_index"] = index;
+    }
+    story.BindExternalFunction("setRoomIndex", setRoomIndex);
 
-		// select the next room - favouring least visited for replay value
-		function getNewRoom(bonus){
-			var index = 0;
-			if(bonus){
-				// roll when go deeper
-				index = rng.value(0, 20) + bonus;
-				if(index > totalRooms){
-					return index;// found center
-				}
-			} else {
-				// any room
-				index = rng.value(1, totalRooms + 1);
-			}
-			// find a room we visited the least
-			var count = 0;
-			while(visited[index+""] && visited[index+""] >= played){
-				count++;
-				index++;
-				if(index > totalRooms) index = 1;
-				if(count >= totalRooms){
-					count = 0;
-					console.log("ALL ROOMS PLAYED:"+played);
-					played++;
-					looped = true;
-				}
-			}
-			console.log("new room, index:"+index+" played:"+played);
-			visited[index+""] = played;
-			return index;
-		}
-		
-		// shuffle the labyrinth and insert new rooms
-		function changeRooms(){
-			history.shift();
-			var center = history.pop();
-			rng.shuffle(history);
-			if(history.length > 3 && history.length < 28){
-				for(var i = 0; i < 3; i++){
-					history.pop();
-					history.push(getNewRoom());
-				}
-				rng.shuffle(history);
-			}
-			history.unshift(0);
-			history.push(center);
-			console.log("changeRooms:", history);
-		}
-		story.BindExternalFunction("changeRooms", changeRooms);
+    // select the next room - favouring least visited for replay value
+    function getNewRoom(bonus){
+      var index = 0;
+      if(bonus){
+        // roll when go deeper
+        index = rng.value(0, 20) + bonus;
+        if(index > totalRooms){
+          return index;// found center
+        }
+      } else {
+        // any room
+        index = rng.value(1, totalRooms + 1);
+      }
+      // find a room we visited the least
+      var count = 0;
+      while(visited[index+""] && visited[index+""] >= played){
+        count++;
+        index++;
+        if(index > totalRooms) index = 1;
+        if(count >= totalRooms){
+          count = 0;
+          console.log("ALL ROOMS PLAYED:"+played);
+          played++;
+          looped = true;
+        }
+      }
+      console.log("new room, index:"+index+" played:"+played);
+      visited[index+""] = played;
+      return index;
+    }
+    
+    // shuffle the labyrinth and insert new rooms
+    function changeRooms(){
+      history.shift();
+      var center = history.pop();
+      rng.shuffle(history);
+      if(history.length > 3 && history.length < 28){
+        for(var i = 0; i < 3; i++){
+          history.pop();
+          history.push(getNewRoom());
+        }
+        rng.shuffle(history);
+      }
+      history.unshift(0);
+      history.push(center);
+      console.log("changeRooms:", history);
+    }
+    story.BindExternalFunction("changeRooms", changeRooms);
 
-		// have we looped through all the content
-		function isLooped(){
-			var temp = looped;
-			looped = false;
-			return temp;
-		}
-		story.BindExternalFunction("isLooped", isLooped);
-		
-		// called during #RESET
-		function resetRooms(){
-			history = [0];
-			story.variablesState["isReplay"] = true;
-		}
-		// ============================================================
-		
-		// I wanted keyboard controls
-		var optionsToKeys = [];
-		function onKeyDown(event){
-			var code = event.keyCode;
-			if(code >= 49 && code <= 57){// keys 1-9
-				code -= 49;
-			} else if(code >= 97 && code <= 105){// numpad 1-9
-				code -= 97;
-			} else if(code == 13 || code == 14 || code == 32){// Enter / Return / Space 
-				code = 0;
-			} else {
-				return;
-			}
-			console.log("option key:"+code);
-			if(optionsToKeys.length > code){
-				optionsToKeys[code].click();
-			}
-		}
-		window.addEventListener("keydown", onKeyDown);
+    // have we looped through all the content
+    function isLooped(){
+      var temp = looped;
+      looped = false;
+      return temp;
+    }
+    story.BindExternalFunction("isLooped", isLooped);
+    
+    // called during #RESET
+    function resetRooms(){
+      history = [0];
+      story.variablesState["isReplay"] = true;
+    }
+    // ============================================================
+    
+    // I wanted keyboard controls
+    var optionsToKeys = [];
+    function onKeyDown(event){
+      var code = event.keyCode;
+      if(code >= 49 && code <= 57){// keys 1-9
+        code -= 49;
+      } else if(code >= 97 && code <= 105){// numpad 1-9
+        code -= 97;
+      } else if(code == 13 || code == 14 || code == 32){// Enter / Return / Space 
+        code = 0;
+      } else {
+        return;
+      }
+      console.log("option key:"+code);
+      if(optionsToKeys.length > code){
+        optionsToKeys[code].click();
+      }
+    }
+    window.addEventListener("keydown", onKeyDown);
 
-		// main.js continues as normal for a while
+    // main.js continues as normal for a while
 
     var savePoint = "";
 
@@ -265,8 +265,8 @@
             delay += 200.0;
         }
 
-				// keyboard controls will use this array
-				optionsToKeys = [];
+        // keyboard controls will use this array
+        optionsToKeys = [];
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
@@ -301,8 +301,8 @@
                 continueStory();
             });
 
-						// Keyboard input will click the option for us
-						optionsToKeys.push(choiceAnchorEl);
+            // Keyboard input will click the option for us
+            optionsToKeys.push(choiceAnchorEl);
 
         });
 
@@ -325,7 +325,7 @@
         // set save point to here
         savePoint = story.state.toJson();
 
-				resetRooms();
+        resetRooms();
 
         continueStory(true);
 
@@ -465,7 +465,7 @@
         let saveEl = document.getElementById("save");
         if (saveEl) saveEl.addEventListener("click", function(event) {
             try {
-								window.localStorage.setItem('save-state', savePoint);
+                window.localStorage.setItem('save-state', savePoint);
                 document.getElementById("reload").removeAttribute("disabled");
                 window.localStorage.setItem('theme', document.body.classList.contains("dark") ? "dark" : "");
             } catch (e) {
